@@ -1,7 +1,4 @@
-
-# TETHUNA ONLINE STORE
-
-Welcome to TETHUNA STORE, your premier online marketplace for a diverse range of exquisite products crafted from the finest Karawo materials. We take immense pride in curating a unique collection of items that showcase the beauty, versatility, and cultural significance of Karawo, a material known for its exceptional quality and sustainable sourcing.
+## umkm-gis
 
 
 ## How to set up a project
@@ -36,5 +33,4 @@ To finalize this everything, run the following commands on your terminal.
   php artisan migrate
 
   php artisan server
-```# umkm-gis
-# umkm-gis
+```
