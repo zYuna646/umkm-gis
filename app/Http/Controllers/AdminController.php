@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\artikel;
 use App\Models\Catalog;
 use App\Models\Category;
 use App\Models\Information;
+use App\Models\JenisUsaha;
+use App\Models\KategoriArtikel;
+use App\Models\KlasifikasiUsaha;
 use App\Models\UMKM;
 use App\Models\User;
 use App\Models\Video;
@@ -14,10 +18,11 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $count_catalog = Catalog::count();
-        $count_category = Category::count();
-        $count_video = Video::count();
-        $count_information = Information::count();
+        $count_catalog = artikel::count();
+        $count_category = UMKM::count();
+        $count_video = JenisUsaha::count();
+        $count_information = KlasifikasiUsaha::count();
+        $count_kategori = KategoriArtikel::count();
 
         $latest_products = Catalog::orderBy('created_at', 'desc')->take(5)->get();
         $latest_video = Video::orderBy('created_at', 'desc')->take(1)->first();
@@ -30,6 +35,7 @@ class AdminController extends Controller
             'count_catalog' => $count_catalog,
             'count_category' => $count_category,
             'count_video' => $count_video,
+            'count_kategori' => $count_kategori,
             'count_information' => $count_information,
             'latest_products' => $latest_products,
             'latest_video' => $latest_video,

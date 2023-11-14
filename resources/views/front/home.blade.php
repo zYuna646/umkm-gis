@@ -58,38 +58,15 @@
     </section>
     <!-- End Slider  -->
 
-    <!-- Start About us -->
-    <section class="about-us" id="about-us">
-        <div class="container">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-12 col-lg-6" data-aos="fade-right">
-                    <div class="about-us-img">
-                        <img src="{{ asset('assets/front/img/about-us.jpg') }}" alt="about-us-img">
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6" data-aos="fade-left">
-                    <div class="card border-0 rounded-0">
-                        <div class="card-body">
-                            <h2 class="mb-3">About Us</h2>
-                            <img src="{{ asset('assets/front/img/logo.jpg') }}" alt="logo">
-                            <p class="my-3 text-justify" style="text-align: justify;">
-                                {{ Str::limit($aboutUs->desc ?? '', 850) }}</p>
-                            {{-- <a href="#">Read More <i class="fa-solid fa-arrow-right"></i></a> --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </section>
-    <!-- End About us -->
-
+   
     <!-- Start Gallery -->
-    <section class="gallery" id="gallery">
+    <section class="gallery" id="artikel">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="content-title" data-aos="fade-down">
                         <div class="text-center">
-                            <h2 class="mb-3">Gallery</h2>
+                            <h2 class="mb-3">Artikel</h2>
                             <p class="mb-5">Related about &nbsp;<img src="{{ asset('assets/front/img/logo.jpg') }}"
                                     alt="logo" width="120px"></p>
                         </div>
@@ -97,25 +74,25 @@
                     <div class="content-body" data-aos="fade-up">
                         <div class="categories-links">
                             <span class="category-link category-active" data-name="All">All</span>
-                            @foreach ($categories as $category)
+                            @foreach ($kategori as $category)
                                 <span class="category-link" data-name="{{ $category->slug }}">{{ $category->name }}</span>
                             @endforeach
-                            <a href="#">See More ...</a>
+                            <a href="{{ route('catalog') }}">See More ...</a>
                         </div>
 
                         <div class="galleries">
-                            @foreach ($galleries as $gallery)
-                                <div class="gallery-img" data-name="{{ $gallery->category->slug ?? '' }}">
-                                    <img src="{{ asset('uploads/catalog/image/' . $gallery->image ?? '') }}"
+                            @foreach ($artikels as $gallery)
+                                <div class="gallery-img" data-name="{{ App\Models\KategoriArtikel::find($gallery->kategori_artikel_id)->slug ?? '' }}">
+                                    <img src="{{ asset('uploads/catalog/image/' . $gallery->cover ?? '') }}"
                                         alt="gallery-img">
                                     <div class="gallery-overlay">
-                                        <h4 class="mb-0">{{ $gallery->name ?? '' }}</h4>
-                                        <span>Category</span>
+                                        <h4 class="mb-0">{{ $gallery->title ?? '' }}</h4>
+                                        <span>{{App\Models\KategoriArtikel::find($gallery->kategori_artikel_id)->name}}</span>
                                         <div class="gallery-button mt-2">
-                                            <a href="{{ route('product.detail', $gallery->slug) }}"><i
+                                            <a href="{{ route('artikel.detail', $gallery->id) }}"><i
                                                     class="fa-solid fa-magnifying-glass"></i></a>
                                             <button type="button" class="copy-link-button"
-                                                data-link="{{ route('product.detail', $gallery->slug) }}"><i
+                                                data-link="{{ route('artikel.detail', $gallery->id) }}"><i
                                                     class="fa-solid fa-link"></i></button>
                                         </div>
                                     </div>
@@ -127,7 +104,6 @@
             </div>
         </div>
     </section>
-    <!-- End Gallery -->
 
     <!-- Start Videos -->
     <section class="videos" id="videos">
@@ -157,7 +133,7 @@
                     <div class="content-title" data-aos="fade-right">
                         <div class="text-left">
                             <h2 class="mb-3">Information</h2>
-                            <p class="mb-5">Latest information about &nbsp;<img
+                            <p class="mb-5"> &nbsp;<img
                                     src="{{ asset('assets/front/img/logo.jpg') }}" alt="logo" width="120px"></p>
                         </div>
                     </div>
@@ -295,7 +271,7 @@
             var lat = {{ $latitude }};
             var lng = {{ $longitude }};
             var marker = L.marker([lat, lng]).addTo(map);
-            marker.bindPopup('{{ $umkm->nama_pemilik }}');
+            marker.bindPopup('{{ $umkm->nama_pemilik . ', jenis usaha : ' . $umkm->JenisUsaha->name . ', Klasifikasi Usaha : ' . $umkm->KlasifikasiUsaha->name }}');
         @endforeach
     </script>
 @endpush

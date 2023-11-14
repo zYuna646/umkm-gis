@@ -19,26 +19,35 @@
     </div>
 
     <div class="card">
-        <form action="{{ route('admin.' . $active . '.store') }}" method="post">
+        <form action="{{ route('admin.' . $active . '.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <h5 class="mb-3">{{ $subtitle }} Form</h5>
                 <div class="row">
                     <div class="col-12">
-
                         <div class="mb-3">
                             <label class="control-label mb-1">Kategori Artikel<span class="text-danger">*</span></label>
-                            <select name="parent"
-                                class="form-select form-select-sm @error('parent') is-invalid @enderror"
+                            <select name="parent" class="form-select form-select-sm @error('parent') is-invalid @enderror"
                                 aria-label="Small select example">
                                 <option value="" disabled selected>Select Kategori Artikel</option>
                                 @foreach ($KategoriArtikel as $item)
-                                    <option value="{{ $item->id }}"
-                                        {{ old('parent') == $item->id ? 'selected' : '' }}>{{ $item->name }}
+                                    <option value="{{ $item->id }}" {{ old('parent') == $item->id ? 'selected' : '' }}>
+                                        {{ $item->name }}
                                     </option>
                                 @endforeach
                             </select>
                             @error('parent')
+                                <small class="invalid-feedback">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="control-label mb-1">Pilih Gambar Cover Artikel<span class="text-danger">*</span></label>
+                            <input type="file" name="cover"
+                                class="form-control @error('cover') is-invalid @enderror" accept=".png, .jpg, .jpeg" />
+                            @error('cover')
                                 <small class="invalid-feedback">
                                     {{ $message }}
                                 </small>
@@ -58,8 +67,9 @@
 
                         <div class="mb-3">
                             <label class="control-label mb-1">Keywords<span class="text-danger">*</span></label>
-                            <input type="text" name="keywords" class="form-control @error('keywords') is-invalid @enderror"
-                                placeholder="..." value="{{ old('keywords') }}" />
+                            <input type="text" name="keywords"
+                                class="form-control @error('keywords') is-invalid @enderror" placeholder="..."
+                                value="{{ old('keywords') }}" />
                             @error('keywords')
                                 <small class="invalid-feedback">
                                     {{ $message }}
@@ -69,8 +79,9 @@
 
                         <div class="mb-3">
                             <label class="control-label mb-1">Deskripsi<span class="text-danger">*</span></label>
-                            <input type="text" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror"
-                                placeholder="..." value="{{ old('deskripsi') }}" />
+                            <input type="text" name="deskripsi"
+                                class="form-control @error('deskripsi') is-invalid @enderror" placeholder="..."
+                                value="{{ old('deskripsi') }}" />
                             @error('deskripsi')
                                 <small class="invalid-feedback">
                                     {{ $message }}
@@ -79,8 +90,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="control-label mb-1">Isi Artikel/Berita<span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label mb-1">Isi Artikel/Berita<span class="text-danger">*</span></label>
 
                             <textarea class="form-control" name="isi_artikel" rows="5" id="editor">
                                 {{ old('isi_artikel') }}

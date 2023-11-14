@@ -28,5 +28,39 @@ class UMKM extends Model
         'jenis_usaha_id',
         'klasifikasi_usaha_id'
     ];
-    
+
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['JenisUsaha'] ?? false, function ($query, $category) {
+            $category = JenisUsaha::where('slug', $category)->first();
+            if ($category) {
+                $query->where('jenis_usaha_id', $category->id);
+            }
+        });
+
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            $query->where('nama_pemilik', 'like', '%' . $search . '%')
+                ->orWhere('alamat', 'like', '%' . $search . '%')
+                ->orWhere('desa', 'like', '%' . $search . '%')
+                ->orWhere('kecamatan', 'like', '%' . $search . '%')
+                ->orWhere('kabupaten', 'like', '%' . $search . '%')
+                ->orWhere('keterangan_jenis_usaha', 'like', '%' . $search . '%')
+                ->orWhere('kordinat', 'like', '%' . $search . '%');
+        });
+
+
+
+        return $query;
+    }
+
+    public function JenisUsaha()
+    {
+        return $this->belongsTo(JenisUsaha::class);
+    }
+
+    public function KlasifikasiUsaha()
+    {
+        return $this->belongsTo(KlasifikasiUsaha::class);
+    }
 }

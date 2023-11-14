@@ -28,12 +28,9 @@ return new class extends Migration {
             $table->string('keterangan_jenis_usaha');
             $table->string('keterangan');
             $table->point('kordinat');
-            $table->unsignedBigInteger('jenis_usaha_id');
-            $table->unsignedBigInteger('klasifikasi_usaha_id');
+            $table->foreignId('jenis_usaha_id')->constrained('jenis_usahas')->onDelete('cascade');
+            $table->foreignId('klasifikasi_usaha_id')->constrained('klasifikasi_usahas')->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('jenis_usaha_id')->references('id')->on('jenis_usahas');
-            $table->foreign('klasifikasi_usaha_id')->references('id')->on('klasifikasi_usahas');
         });
     }
 

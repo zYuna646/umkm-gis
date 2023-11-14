@@ -81,38 +81,7 @@
                         <span class="hide-menu">Artikel</span>
                     </a>
                 </li>
-                <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Kategori</span>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link @if ($active == 'gallery') active @endif"
-                        href="{{ route('admin.gallery') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-cards"></i>
-                        </span>
-                        <span class="hide-menu">Gallery</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link @if ($active == 'video') active @endif"
-                        href="{{ route('admin.video') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-brand-youtube"></i>
-                        </span>
-                        <span class="hide-menu">Video</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link @if ($active == 'information') active @endif"
-                        href="{{ route('admin.information') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-news"></i>
-                        </span>
-                        <span class="hide-menu">Information</span>
-                    </a>
-                </li>
+                
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Settings</span>

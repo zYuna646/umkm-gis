@@ -29,6 +29,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontPageController::class, 'index'])->name('home');
 Route::get('/catalog', [FrontPageController::class, 'catalog'])->name('catalog');
+Route::get('/umkm', [FrontPageController::class, 'umkm'])->name('umkm');
+Route::get('/catalog/artikel/{id}', [FrontPageController::class, 'artikelDetail'])->name('artikel.detail');
+Route::get('/catalog/umkm/{id}', [FrontPageController::class, 'umkmDetail'])->name('umkm.detail');
+Route::get('/kategori', [FrontPageController::class, 'kategori'])->name('kategori');
+
 Route::get('/catalog/product/{slug}', [FrontPageController::class, 'productDetail'])->name('product.detail');
 
 /* Authentication Routes... */

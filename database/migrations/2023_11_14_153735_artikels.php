@@ -14,15 +14,13 @@ return new class extends Migration
         Schema::create('artikels', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('gambar');
+            $table->string('cover');
             $table->string('keywords');
             $table->string('deskripsi');
             $table->string('isi_artikel');
-            $table->unsignedBigInteger('kategori_artikel_id');
+            $table->foreignId('kategori_artikel_id')->constrained('kategori_artikels')->onDelete('cascade');
+
             $table->timestamps();
-
-            $table->foreign('kategori_artikel_id')->references('id')->on('kategori_artikels');
-
         });
     }
 

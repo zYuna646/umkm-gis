@@ -122,11 +122,11 @@
 
             <div class="row g-2 g-lg-4 my-4 align-items-center catalog-filter">
                 <div class="col-12 col-lg-9">
-                    <form action="/catalog" method="get">
+                    <form action="/umkm" method="get">
                         @if (request('category_product'))
                             <input type="hidden" name="category_product" value="{{ request('category_product') }}">
                         @endif
-                        <input type="text" name="search" class="form-control" placeholder="Cari Artikel ..."
+                        <input type="text" name="search" class="form-control" placeholder="Cari UMKM ..."
                             value="{{ request('search') }}">
                     </form>
                 </div>
@@ -135,28 +135,29 @@
                         <button class="btn btn-category w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             @php
-                                use App\Models\KategoriArtikel;
+                                use App\Models\JenisUsaha;
                             @endphp
-                            {{ request('category_product') ?? 'Category' }}
+                            {{ request('category_product') ?? 'Jenis Usaha' }}
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('catalog') }}">All</a></li>
+                            <li><a class="dropdown-item" href="{{ route('umkm') }}">All</a></li>
                             @foreach ($categories as $category)
                                 <li><a class="dropdown-item"
-                                        href="{{ route('catalog', ['category_product' => $category->slug]) }}">{{ $category->name }}</a>
+                                        href="{{ route('umkm', ['category_product' => $category->slug]) }}">{{ $category->name }}</a>
                                 </li>
                             @endforeach
                         </ul>
                     </div>
                 </div>
             </div>
+            
 
             <div class="row g-3 g-xl-4">
                 @foreach ($products as $product)
                     <div class="col-6 col-md-4 col-xl-3">
-                        <a href="{{ route('artikel.detail', $product->id) }}" class="brand-card">
+                        <a href="{{ route('umkm.detail', $product->id) }}" class="brand-card">
                             <div class="brand-img">
-                                <img src="{{ asset('uploads/catalog/image/' . $product->cover ?? '') }}" alt="image">
+                                <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt="image">
                                 <div class="brand-overlay">
                                     <span class="brand-category">
                                         <i class="fa-solid fa-tag"></i>
@@ -165,8 +166,13 @@
                                 </div>
                             </div>
                             <div class="brand-title">
-                                <h6>{{ $product->title }}</h6>
-                                <p>{{ $product->deskripsi }}</p>
+                                <h6>{{ $product->nama_pemilik }}</h6>
+                                <p>Desa : {{ $product->desa }}</p>
+                                <p>Kecamatan : {{ $product->kecamatan }}</p>
+                                <p>Kabupaten : {{ $product->kabupaten}}</p>
+                                <p>Jenis Usaha : {{ App\Models\JenisUsaha::find($product->jenis_usaha_id)->name}}</p>
+                                <p>Klasifikasi Usaha : {{ App\Models\KlasifikasiUsaha::find($product->klasifikasi_usaha_id)->name}}</p>
+
                             </div>
                         </a>
                     </div>

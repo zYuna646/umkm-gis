@@ -62,40 +62,24 @@
                     <thead class="header-item">
                         <tr>
                             <th>No</th>
-                            <th>Nama Pemilik</th>
-                            <th>Desa - Kelurahan</th>
-                            <th>Kecamatan</th>
-                            <th>Kota - Kabupaten</th>
-                            <th>Jenis Usaha</th>
-                            <th>Klasifikasi Usaha</th>
-                            <th>Pendapatan Aset</th>
-                            <th>Pendapatan Omset</th>
-                            <th>Tenaga Kerja (Laki-Laki)</th>
-                            <th>Tenaga Kerja (Perempuan)</th>
-                            <th>Jumlah Tenaga Kerja</th>
-                            <th>Keterangan Jenis Usaha</th>
-                            <th>Keterangan</th>
-                            <th>Action</th>
+                            <th>Judul</th>
+                            <th>Keywords</th>
+                            <th>Kategori Artikel</th></th>
+                            <th>cover</th>
+                            <th>action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($datas as $result)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $result->nama_pemilik }}</td>
-                                <td>{{ $result->desa }}</td>
-                                <td>{{ $result->kecamatan }}</td>
-                                <td>{{ $result->kabupaten }}</td>
-                                <td>{{ \App\Models\JenisUsaha::find($result->jenis_usaha_id)->name }}</td>
-                                <td>{{ \App\Models\KlasifikasiUsaha::find($result->klasifikasi_usaha_id)->name }}</td>
-                                <td>{{ $result->pendapatan_aset }}</td>
-                                <td>{{ $result->pendapatan_omset }}</td>
-                                <td>{{ $result->tenaga_kerja_l }}</td>
-                                <td>{{ $result->tenaga_kerja_p }}</td>
-                                <td>{{ $result->jumlah_tenaga_kerja }}</td>
-                                <td>{{ $result->keterangan_jenis_usaha }}</td>
-                                <td>{{ $result->keterangan   }}</td>
-                                
+                                <td>{{ $result->title }}</td>
+                                <td>{{ $result->keywords}}</td>
+                                <td>{{ \App\Models\KategoriArtikel::find($result->kategori_artikel_id)->name }}</td>
+                                <td>
+                                    <img src="{{ asset('uploads/catalog/image/' . $result->cover) }}" alt="{{ $result->name }}"
+                                        class="img-fluid rounded" width="100" height="100">
+                                </td>
 
                                 <td>
                                     <a href="{{ route('admin.' . $active . '.edit', $result->id) }}"

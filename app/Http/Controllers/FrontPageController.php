@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\AboutUs;
+use App\Models\artikel;
 use App\Models\Catalog;
 use App\Models\Category;
 use App\Models\Information;
+use App\Models\JenisUsaha;
+use App\Models\KategoriArtikel;
 use App\Models\MainSlider;
 use App\Models\ReviewSlider;
 use App\Models\UMKM;
@@ -16,6 +19,8 @@ class FrontPageController extends Controller
     public function index()
     {
         $umkms = UMKM::where('is_Umum', true)->get();
+        $artikels = artikel::all();
+        $kategoriArtikel = KategoriArtikel::all();
         return view('front.home', [
             'title' => 'Home',
             'reviewSliders' => ReviewSlider::latest()->get(),
@@ -25,18 +30,43 @@ class FrontPageController extends Controller
             'videos' => Video::latest()->take(3)->get(),
             'informations' => Information::latest()->get(),
             'umkms' => $umkms,
+            'artikels' => $artikels,
+            'kategori' => $kategoriArtikel
         ]);
     }
 
     public function catalog()
     {
-        $catalogs = Catalog::latest()->filter(request(['search', 'category_product']))->paginate(16)->withQueryString();
+        $catalogs = artikel::latest()->filter(request(['search', 'category_product']))->paginate(16)->withQueryString();
+
 
         return view('front.catalog', [
             'title' => 'Catalog',
             'mainSliders' => MainSlider::latest()->get(),
-            'categories' => Category::orderBy('name', 'ASC')->get(),
+            'categories' => KategoriArtikel::orderBy('name', 'ASC')->get(),
             'products' => $catalogs,
+        ]);
+    }
+
+    public function umkm()
+    {
+        $catalogs = UMKM::latest()->filter(request(['search', 'category_product']))->paginate(16)->withQueryString();
+
+        return view('front.umkm', [
+            'title' => 'Catalog',
+            'mainSliders' => MainSlider::latest()->get(),
+            'categories' => JenisUsaha::orderBy('name', 'ASC')->get(),
+            'products' => $catalogs,
+        ]);
+    }
+
+    public function Kategori()
+    {
+        return view('front.catalog', [
+            'title' => 'Artikel',
+            'mainSliders' => MainSlider::latest()->get(),
+            'categories' => KategoriArtikel::all(),
+            'products' => artikel::all(),
         ]);
     }
 
@@ -59,6 +89,26 @@ class FrontPageController extends Controller
             'no_hp' => $no_hp,
             'product' => $product,
             'related_products' => $related_products
+        ]);
+    }
+
+    public function artikelDetail($id)
+    {
+        $artikel = artikel::findOrFail($id);
+        return view('front.artikel-detail', [
+            'title' => 'Artikel | ' . $artikel->name,
+            'mainSliders' => MainSlider::latest()->get(),
+            'artikel' => $artikel,
+        ]);
+    }
+
+    public function umkmDetail($id)
+    {
+        $umkm = UMKM::findOrFail($id);
+        return view('front.umkm-detail', [
+            'title' => 'Artikel | ' . $umkm->nama_pemilik,
+            'mainSliders' => MainSlider::latest()->get(),
+            'umkm' => $umkm,
         ]);
     }
 }

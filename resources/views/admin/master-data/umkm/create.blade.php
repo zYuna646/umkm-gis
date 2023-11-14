@@ -167,27 +167,19 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="control-label mb-1">Pendapatan - Aset<span class="text-danger">*</span></label>
-                            <input type="number" name="pendapatan-aset"
-                                class="form-control @error('pendapatan-aset') is-invalid @enderror" placeholder="(Rp)"
-                                value="{{ old('pendapatan-aset') }}" />
-                            @error('pendapatan-aset')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
+                            <label class="control-label mb-1">Pendapatan - Aset</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Rp</span>
+                                <input type="number" id="priceInput" name="pendapatan-aset" class="form-control" value="{{ old('pendapatan-aset') }}" placeholder="0" />
+                            </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="control-label mb-1">Pendapatan - Omset<span class="text-danger">*</span></label>
-                            <input type="number" name="pendapatan-omset"
-                                class="form-control @error('pendapatan-omset') is-invalid @enderror" placeholder="(Rp)"
-                                value="{{ old('pendapatan-omset') }}" />
-                            @error('pendapatan-omset')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
+                            <label class="control-label mb-1">Pendapatan - Omset</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Rp</span>
+                                <input type="number" id="priceInput" name="pendapatan-omset" class="form-control" value="{{ old('pendapatan-omset') }}" placeholder="0" />
+                            </div>
                         </div>
 
                         <div class="mb-3">

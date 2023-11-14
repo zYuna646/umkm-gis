@@ -9,20 +9,21 @@
 @section('content')
     <div class="owl-carousel counter-carousel owl-theme">
         <div class="item">
-            <div class="card border-0 zoom-in bg-light-primary shadow-none">
+            <div class="card border-0 zoom-in bg-light-warning shadow-none">
                 <div class="card-body">
                     <div class="text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-box mb-3 text-primary"
-                            width="50" height="50" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-category-2 mb-3 text-warning" width="50" height="50"
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5"></path>
-                            <path d="M12 12l8 -4.5"></path>
-                            <path d="M12 12l0 9"></path>
-                            <path d="M12 12l-8 -4.5"></path>
+                            <path d="M14 4h6v6h-6z"></path>
+                            <path d="M4 14h6v6h-6z"></path>
+                            <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                            <path d="M7 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
                         </svg>
-                        <p class="fw-semibold fs-3 text-primary mb-1"> Product </p>
-                        <h5 class="fw-semibold text-primary mb-0">{{ $count_catalog ?? 0 }}</h5>
+                        <p class="fw-semibold fs-3 text-warning mb-1"> Jenis Usaha </p>
+                        <h5 class="fw-semibold text-warning mb-0">{{ $count_video ?? 0 }}</h5>
                     </div>
                 </div>
             </div>
@@ -41,26 +42,28 @@
                             <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
                             <path d="M7 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
                         </svg>
-                        <p class="fw-semibold fs-3 text-warning mb-1"> Category </p>
-                        <h5 class="fw-semibold text-warning mb-0">{{ $count_category ?? 0 }}</h5>
+                        <p class="fw-semibold fs-3 text-warning mb-1"> Klasifikasi Usaha </p>
+                        <h5 class="fw-semibold text-warning mb-0">{{ $count_information ?? 0 }}</h5>
                     </div>
                 </div>
             </div>
         </div>
         <div class="item">
-            <div class="card border-0 zoom-in bg-light-danger shadow-none">
+            <div class="card border-0 zoom-in bg-light-warning shadow-none">
                 <div class="card-body">
                     <div class="text-center">
                         <svg xmlns="http://www.w3.org/2000/svg"
-                            class="icon icon-tabler icon-tabler-brand-youtube mb-3 text-danger" width="50"
-                            height="50" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
+                            class="icon icon-tabler icon-tabler-category-2 mb-3 text-warning" width="50" height="50"
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M2 8a4 4 0 0 1 4 -4h12a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-12a4 4 0 0 1 -4 -4v-8z"></path>
-                            <path d="M10 9l5 3l-5 3z"></path>
+                            <path d="M14 4h6v6h-6z"></path>
+                            <path d="M4 14h6v6h-6z"></path>
+                            <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                            <path d="M7 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
                         </svg>
-                        <p class="fw-semibold fs-3 text-danger mb-1"> Video </p>
-                        <h5 class="fw-semibold text-danger mb-0">{{ $count_video ?? 0 }}</h5>
+                        <p class="fw-semibold fs-3 text-warning mb-1"> Kategori Artikel </p>
+                        <h5 class="fw-semibold text-warning mb-0">{{ $count_kategori ?? 0 }}</h5>
                     </div>
                 </div>
             </div>
@@ -81,8 +84,30 @@
                             <path d="M8 12l4 0"></path>
                             <path d="M8 16l4 0"></path>
                         </svg>
-                        <p class="fw-semibold fs-3 text-secondary mb-1"> Information </p>
-                        <h5 class="fw-semibold text-secondary mb-0">{{ $count_information ?? 0 }}</h5>
+                        <p class="fw-semibold fs-3 text-secondary mb-1"> UMKM </p>
+                        <h5 class="fw-semibold text-secondary mb-0">{{ $count_category ?? 0 }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="card border-0 zoom-in bg-light-secondary shadow-none">
+                <div class="card-body">
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-news mb-3 text-secondary" width="50" height="50"
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path
+                                d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11">
+                            </path>
+                            <path d="M8 8l4 0"></path>
+                            <path d="M8 12l4 0"></path>
+                            <path d="M8 16l4 0"></path>
+                        </svg>
+                        <p class="fw-semibold fs-3 text-secondary mb-1"> Artikel </p>
+                        <h5 class="fw-semibold text-secondary mb-0">{{ $count_catalog ?? 0 }}</h5>
                     </div>
                 </div>
             </div>
@@ -151,6 +176,8 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
+        var markers = []; // Create an array to store markers
+
         @foreach ($umkms as $umkm)
             @php
                 $coordinates = DB::select("SELECT X(kordinat) AS lat, Y(kordinat) AS lng FROM u_m_k_m_s WHERE id = $umkm->id")[0];
@@ -160,8 +187,14 @@
 
             var lat = {{ $latitude }};
             var lng = {{ $longitude }};
-            var marker = L.marker([lat, lng]).addTo(map);
-            marker.bindPopup('{{ $umkm->nama_pemilik }}');
+            var marker = L.marker([lat, lng]);
+            marker.bindPopup('{{ $umkm->nama_pemilik . ', jenis usaha : ' . $umkm->JenisUsaha->name . ', Klasifikasi Usaha : ' . $umkm->KlasifikasiUsaha->name }}');
+
+            markers.push(marker); 
         @endforeach
+
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].addTo(map);
+        }
     </script>
 @endpush

@@ -27,13 +27,10 @@
               <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#about-us">About Us</a>
+              <a class="nav-link" href="#artikel">Berita & Artikel</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#gallery">Gallery</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#videos">Videos</a>
+              <a class="nav-link" href="#layanan">Layanan UMKM</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#information">Information</a>
@@ -44,9 +41,9 @@
           </ul>
 
           <div>
-            <a class="btn btn-nav-link" href="{{ route('catalog') }}">
+            <a class="btn btn-nav-link" href="{{ route('umkm') }}">
               <i class="fa-solid fa-table-list"></i>&nbsp;
-              Catalog
+              UMKM
             </a>
             @auth
               <a class="btn btn-nav-link2" href="{{ route('admin.dashboard') }}">

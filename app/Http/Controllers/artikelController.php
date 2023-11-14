@@ -41,6 +41,7 @@ class artikelController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate(
             $request,
             [
@@ -49,19 +50,24 @@ class artikelController extends Controller
                 'keywords' => 'required',
                 'deskripsi' => 'required',
                 'isi_artikel' => 'required',
-
+                'cover' => 'required|image|mimes:png,jpg,jpeg',
             ],
             [
                 'parent.required' => 'Artikel name is required!',
             ]
         );
+ 
+        $image = $request->file('cover');
+        $image_name = time() . '-' . rand(1,100) . '-' . $request->judul . '.' . $image->extension();
+        $image->move(public_path('uploads/catalog/image'), $image_name);
 
         artikel::create([
             'title' => $request->judul,
-            'kategori_artikel_id' => $request->kategori_artikel_id,
+            'kategori_artikel_id' => $request->parent,
             'keywords' => $request->keywords,
-            'deskkripsi' => $request->deskripsi,
-            'isi_artikel' => $request->isi_artikel
+            'deskripsi' => $request->deskripsi,
+            'isi_artikel' => $request->isi_artikel,
+            'cover' => $image_name
         ]);
 
         return redirect()->route('admin.artikel')->with('success', 'Artikel has been added!');
@@ -113,6 +119,11 @@ class artikelController extends Controller
     public function destroy($id)
     {
         $artikel = artikel::findOrFail($id);
+        $productImage = $artikel->cover;
+        if ($productImage) {
+            unlink(public_path('uploads/catalog/image/' . $productImage));
+        }
+
         $artikel->delete();
 
         return redirect()->route('admin.artikel')->with('success', 'Artikel has been deleted!');
