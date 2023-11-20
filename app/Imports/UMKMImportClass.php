@@ -14,32 +14,37 @@ class UMKMImportClass implements ToCollection
      */
     public function collection(Collection $collection)
     {
-        foreach ($collection as $key => $value) {
-
-            $koordinat_maps = $value('kordinat');
+        foreach ($collection as $index => $value) {
+            $koordinat_maps = $value['1'];
             list($latitude, $longitude) = explode("  Lang: ", str_replace("Lat: ", "", $koordinat_maps));
             $point = DB::raw("POINT($latitude, $longitude)");
 
-            UMKM::create([
-                'alamat' => $value['alamat'],
-                'kordinat' => $point,
-                'nama_pemilik' => $value['nama_pemilik'],
-                'desa' => $value['desa'],
-                'kecamatan' => $value['kecamatan'],
-                'kabupaten' => $value['kabupaten'],
-                'jenis_usaha_id' => $value['jenis_usaha'],
-                'klasifikasi_usaha_id' => $value['klasifikasi_usaha'],
-                'pendapatan_aset' => $value['pendapatan-aset'],
-                'pendapatan_omset' => $value['pendapatan-omset'],
-                'tenaga_kerja_l' => $value['tenaga-kerja-l'],
-                'tenaga_kerja_p' => $value['tenaga-kerja-p'],
-                'jumlah_tenaga_kerja' => $value['jumlah-tenaga-kerja'],
-                'keterangan_jenis_usaha' => $value['keterangan-jenis-usaha'],
-                'keterangan' => $value['keterangan'],
-                'is_Aktif' => $value['is-aktif'] !== null ? true : false,
-                'is_Umum' => $value['is-umum'] !== null ? true : false,
-                'is_Bantuan' => $value['bantuan'] !== null ? true : false,
-            ]);
+            if ($index == 0) {
+
+            } else {
+                UMKM::create([
+                    'alamat' => $value['0'],
+                    'kordinat' => $point,
+                    'nama_pemilik' => $value['2'],
+                    'desa' => $value['3'],
+                    'kecamatan' => $value['4'],
+                    'kabupaten' => $value['5'],
+                    'jenis_usaha_id' => $value['6'],
+                    'klasifikasi_usaha_id' => $value['7'],
+                    'pendapatan_aset' => $value['8'],
+                    'pendapatan_omset' => $value['9'],
+                    'tenaga_kerja_l' => $value['10'],
+                    'tenaga_kerja_p' => $value['11'],
+                    'jumlah_tenaga_kerja' => $value['12'],
+                    'keterangan_jenis_usaha' => $value['13'],
+                    'keterangan' => $value['14'],
+                    'is_Aktif' => $value['15'] !== null ? true : false,
+                    'is_Umum' => $value['16'] !== null ? true : false,
+                    'is_Bantuan' => $value['17'] !== null ? true : false,
+                ]);
+            }
+
+
         }
     }
 }
