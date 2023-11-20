@@ -73,11 +73,14 @@ Route::middleware(['auth', 'login-check'])->group(function () {
 
 
     Route::get('/admin/umkm', [UMKMController::class, 'index'])->name('admin.umkm');
+    Route::post('/admin/umkm/import', [UMKMController::class, 'import'])->name('admin.umkm.import');
     Route::get('/admin/umkm/add', [UMKMController::class, 'create'])->name('admin.umkm.create');
     Route::post('/admin/umkm/store', [UMKMController::class, 'store'])->name('admin.umkm.store');
     Route::get('/admin/umkm/{id}/edit', [UMKMController::class, 'edit'])->name('admin.umkm.edit');
     Route::put('/admin/umkm/{id}/update', [UMKMController::class, 'update'])->name('admin.umkm.update');
     Route::delete('/admin/umkm/{id}/delete', [UMKMController::class, 'destroy'])->name('admin.umkm.delete');
+    Route::get('/admin/umkm/download', [UMKMController::class, 'download'])->name('admin.umkm.download');
+
 
     Route::get('/admin/kategori_artikel', [kategoriArtikelController::class, 'index'])->name('admin.KategoriArtikel');
     Route::get('/admin/kategori_artikel/add', [kategoriArtikelController::class, 'create'])->name('admin.KategoriArtikel.create');

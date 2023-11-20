@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\UMKMImportClass;
 use App\Models\JenisUsaha;
 use App\Models\KlasifikasiUsaha;
 use App\Models\UMKM;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class UMKMController extends Controller
@@ -25,11 +28,27 @@ class UMKMController extends Controller
         ]);
     }
 
+    public function import(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'excel' => 'required',
+            ]
+        );
+
+        Excel::import(new UMKMImportClass, $request->file('excel'));
+
+
+        return redirect()->route('admin.umkm')->with('success', 'Data imported successfully!');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+
         $JenisUsaha = JenisUsaha::all();
         $KlasifikasiUsaha = KlasifikasiUsaha::all();
         return view('admin.master-data.umkm.create', [
@@ -100,6 +119,17 @@ class UMKMController extends Controller
         ]);
 
         return redirect()->route('admin.umkm')->with('success', 'umkm has been added!');
+    }
+
+    public function download()
+    {
+        $path = public_path('uploads/' . 'template_umkm.xlsx');
+
+        if (file_exists($path)) {
+            return response()->download($path);
+        } else {
+            abort(404);
+        }
     }
 
 
