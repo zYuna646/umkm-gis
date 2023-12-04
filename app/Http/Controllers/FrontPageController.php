@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\BantuanChart;
+use App\Charts\JenisUsahaChart;
+use App\Charts\KecamatanChart;
+use App\Charts\KlasifikasiUsahaChart;
+use App\Charts\PendapatanChart;
+use App\Charts\TenagaKerjaChart;
+use App\Charts\TotalUMKMChart;
 use App\Models\AboutUs;
 use App\Models\artikel;
 use App\Models\Catalog;
@@ -45,6 +52,27 @@ class FrontPageController extends Controller
             'mainSliders' => MainSlider::latest()->get(),
             'categories' => KategoriArtikel::orderBy('name', 'ASC')->get(),
             'products' => '',
+        ]);
+    }
+
+    public function dashboard(
+        PendapatanChart $pendapatanChart,
+        TotalUMKMChart $totalUMKMChart,
+        TenagaKerjaChart $tenagaKerjaChart,
+        BantuanChart $bantuanChart,
+        JenisUsahaChart $jenisUsahaChart,
+        KlasifikasiUsahaChart $klasifikasiUsahaChart,
+        KecamatanChart $kecamatanChart
+    ) {
+        return view('front.dashboard', [
+            'title' => 'dashboard',
+            'pendapatanChart' => $pendapatanChart->build(),
+            'totalUMKMChart' => $totalUMKMChart->build(),
+            'tenagaKerjaChart' => $tenagaKerjaChart->build(),
+            'bantuanChart' => $bantuanChart->build(),
+            'jenisUsahaChart' => $jenisUsahaChart->build(),
+            'klasifikasiUsahaChart' => $klasifikasiUsahaChart->build(),
+            'kecamatanChart' => $kecamatanChart->build()
         ]);
     }
 

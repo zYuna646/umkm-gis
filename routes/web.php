@@ -35,6 +35,8 @@ Route::get('/umkm', [FrontPageController::class, 'umkm'])->name('umkm');
 Route::get('/catalog/artikel/{id}', [FrontPageController::class, 'artikelDetail'])->name('artikel.detail');
 Route::get('/catalog/umkm/{id}', [FrontPageController::class, 'umkmDetail'])->name('umkm.detail');
 Route::get('/kategori', [FrontPageController::class, 'kategori'])->name('kategori');
+Route::get('/dashboard', [FrontPageController::class, 'dashboard'])->name('dashboard');
+
 
 Route::get('/catalog/product/{slug}', [FrontPageController::class, 'productDetail'])->name('product.detail');
 

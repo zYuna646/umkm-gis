@@ -49,7 +49,7 @@
                         <ul class="nav">
                             <li><a href="{{ route('home') }}"
                                     @if (Route::currentRouteName() == 'home') class="active" @endif>Home</a></li>
-                            <li><a href="properties.html">Dashboard</a></li>
+                            <li><a href="{{route('dashboard')}}" @if (Route::currentRouteName() == 'dashboard') class="active" @endif>Dashboard</a></li>
                             <li><a href="{{route('catalog')}}" @if (Route::currentRouteName() == 'catalog') class="active" @endif>Layanan UMKM</a></li>
                             <li><a href="{{ route('contact') }}"   @if (Route::currentRouteName() == 'contact') class="active" @endif>Tentang Kami</a></li>
                             <li><a href="{{ route('umkm') }}"   @if (Route::currentRouteName() == 'umkm') class="active" @endif>UMKM</a></li>

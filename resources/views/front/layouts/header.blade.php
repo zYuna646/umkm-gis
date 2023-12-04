@@ -47,7 +47,7 @@
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                       <li><a href="{{route('home')}}" class="active">Home</a></li>
-                      <li><a href="properties.html">Dashboard</a></li>
+                      <li><a href="{{route('dashboard')}}">Dashboard</a></li>
                       <li><a href="{{route('catalog')}}">Layanan UMKM</a></li>
                       <li><a href="{{route('contact')}}">Tentang Kami</a></li>
                       <li><a href="{{route('umkm')}}">UMKM</a></li>
