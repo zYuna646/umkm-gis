@@ -29,6 +29,49 @@
                         <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
                     </div>
                 </div>
+                <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
+                    <a style="margin-left:2% " href=# class="btn btn-info d-flex align-items-center" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                        <i class="ti ti-plus text-white me-1 fs-5"></i> Buat Laporan
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">UMKM</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.umkm.permintaan.report') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="control-label mb-1">Start Date</label>
+                                <input type="date" name="start_date" class="form-control" />
+
+                            </div>
+                            <div class="mb-3">
+                                <label class="control-label mb-1">End Date</label>
+                                <input type="date" name="end_date" class="form-control" />
+
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-shop" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-shop">Buat Laporan</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
@@ -80,7 +123,7 @@
                             @foreach ($datas as $result)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $result->status }}</td>
+                                    <td>{{ $result->nama_pemilik }}</td>
                                     <td>{{ $result->desa }}</td>
                                     <td>{{ $result->kecamatan }}</td>
                                     <td>{{ $result->kabupaten }}</td>
@@ -157,7 +200,8 @@
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-shop"
                                                                     data-bs-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-shop">Submit</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-shop">Submit</button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -174,7 +218,6 @@
             </div>
         </div>
     @else
-       
     @endif
 @endsection
 

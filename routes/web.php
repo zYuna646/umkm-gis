@@ -82,6 +82,8 @@ Route::middleware(['auth', 'login-check'])->group(function () {
 
 
     Route::get('/admin/umkm', [UMKMController::class, 'index'])->name('admin.umkm');
+    Route::post('/admin/umkm/report', [UMKMController::class, 'report'])->name('admin.umkm.report');
+    Route::post('/admin/umkm/pengajuan/report', [UMKMController::class, 'pengajuan'])->name('admin.umkm.permintaan.report');
     Route::get('/admin/umkm/permintaan', [UMKMController::class, 'permintaan'])->name('admin.umkm.permintaan');
     Route::put('/admin/umkm/permintaan/{id}/{status}/{message}', [UMKMController::class, 'status'])->name('admin.umkm.permintaan.edit');
     Route::post('/admin/umkm/import', [UMKMController::class, 'import'])->name('admin.umkm.import');

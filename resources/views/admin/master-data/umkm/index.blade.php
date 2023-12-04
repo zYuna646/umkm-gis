@@ -40,7 +40,48 @@
                         <!-- Perubahan di sini -->
                         <i class="ti ti-plus text-white me-1 fs-5"></i> Import Excel
                     </a>
+                    <a style="margin-left:2% " href=# class="btn btn-info d-flex align-items-center" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                        <i class="ti ti-plus text-white me-1 fs-5"></i> Buat Laporan
+                    </a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">UMKM</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.umkm.report') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="control-label mb-1">Start Date</label>
+                                <input type="date" name="start_date" class="form-control" />
+
+                            </div>
+                            <div class="mb-3">
+                                <label class="control-label mb-1">End Date</label>
+                                <input type="date" name="end_date" class="form-control" />
+
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-shop" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-shop">Buat Laporan</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
@@ -75,7 +116,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="btn btn-info" href="{{ route('admin.umkm.download') }}" class="btn btn-primary">Download
+                        <a class="btn btn-info" href="{{ route('admin.umkm.download') }}"
+                            class="btn btn-primary">Download
                             Template</a>
                         <div class="form-actions">
                             <div class="modal-footer">
@@ -154,10 +196,10 @@
                                     @elseif($result->status == 'terima') bg-success
                                     @elseif($result->status == 'tolak') bg-danger @endif
                                 ">
-                                    
-                                    {{ $result->status }}</td>
+
+                                        {{ $result->status }}</td>
                                     <td>
-                                        {{$result->message}}
+                                        {{ $result->message }}
                                     </td>
                                     <td>
                                         <a href="{{ route('admin.' . $active . '.edit', $result->id) }}"

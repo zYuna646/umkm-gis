@@ -9,7 +9,7 @@ use App\Models\UMKM;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
+use PDF;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -251,6 +251,64 @@ class UMKMController extends Controller
 
 
         return redirect()->route('admin.umkm')->with('success', 'umkm has been updated!');
+    }
+
+    public function report(Request $request)
+    {
+
+        $this->validate(
+            $request,
+            [
+                'start_date' => 'required',
+            ],
+            [
+            ]
+        );
+
+        $start_date = \Carbon\Carbon::parse($request->start_date)->format('Y-m-d');
+
+
+        if ($request->has('end_date') && !empty($request->end_date)) {
+            $end_date = \Carbon\Carbon::parse($request->end_date)->format('Y-m-d');
+            $produksi = UMKM::whereBetween('created_at', [$start_date, $end_date])->get();
+        } else {
+            $produksi = UMKM::whereDate('created_at', $start_date)->get();
+        }
+        $data = [
+            'umkms' => $produksi->where('status', 'terima'),
+        ];
+        $pdf = PDF::loadView('admin.master-data.umkm.report', $data)->setPaper('A4', 'portrait');
+        return $pdf->download('Produksi Boneva.pdf');
+
+    }
+
+    public function pengajuan(Request $request)
+    {
+
+        $this->validate(
+            $request,
+            [
+                'start_date' => 'required',
+            ],
+            [
+            ]
+        );
+
+        $start_date = \Carbon\Carbon::parse($request->start_date)->format('Y-m-d');
+
+
+        if ($request->has('end_date') && !empty($request->end_date)) {
+            $end_date = \Carbon\Carbon::parse($request->end_date)->format('Y-m-d');
+            $produksi = UMKM::whereBetween('created_at', [$start_date, $end_date])->get();
+        } else {
+            $produksi = UMKM::whereDate('created_at', $start_date)->get();
+        }
+        $data = [
+            'umkms' => $produksi,
+        ];
+        $pdf = PDF::loadView('admin.master-data.umkm.pengajuan', $data)->setPaper('A4', 'portrait');
+        return $pdf->download('Produksi Boneva.pdf');
+
     }
 
     /**
