@@ -28,6 +28,39 @@ class UMKMController extends Controller
         ]);
     }
 
+    public function permintaan()
+    {
+        return view('admin.master-data.umkm.permintaan', [
+            'title' => 'Permintaan umkm',
+            'subtitle' => '',
+            'active' => 'permintaan',
+            'datas' => UMKM::Where('status', 'proses')->get(),
+        ]);
+    }
+
+    public function status(Request $request, $id, $status, $message)
+    {
+
+        $umkm = umkm::findOrFail($id);
+
+
+        if ($request->keterangan != null) {
+            $umkm->update([
+                'status' => $status,
+                'message' => $request->keterangan
+            ]);
+        } else {
+            $umkm->update([
+                'status' => $status,
+                'message' => $message
+            ]);
+        }
+
+
+
+        return redirect()->route('admin.umkm.permintaan')->with('success', 'UMKM berhasil di ' . $status);
+    }
+
     public function import(Request $request)
     {
         $this->validate(
@@ -208,6 +241,13 @@ class UMKMController extends Controller
             'is_Umum' => $request->input('is-umum') !== null ? true : false,
             'is_Bantuan' => $request->input('bantuan') !== null ? true : false,
         ]);
+
+        if($umkm->status == 'tolak')
+        {
+            $umkm->Update([
+                'status' => 'proses'
+            ]);
+        }
 
 
         return redirect()->route('admin.umkm')->with('success', 'umkm has been updated!');

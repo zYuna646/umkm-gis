@@ -1,20 +1,65 @@
 <!-- Start Header Slider-->
-<header class="header-slider">
-  <div class="container-fluid">
-      <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-              @foreach ($mainSliders as $key => $mainSlider)
-                  <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
-                      <img src="{{ asset('uploads/main-slider/' . $mainSlider->image) }}" class="d-block w-100" alt="Slider Image">
-                      <div class="carousel-caption">
-                          <h1>{{ $mainSlider->title ?? '' }}</h1>
-                          <p class="text-wrap slider-subtitle">{{ $mainSlider->sub_title ?? '' }}</p>
-                          <a href="{{ $mainSlider->link ?? '' }}" class="btn btn-custom-transparent">Shop Now</a>
-                      </div>
-                  </div>
-              @endforeach
-          </div>
+
+<!-- ***** Preloader Start ***** -->
+<div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
+    </div>
   </div>
-</header>
+  <!-- ***** Preloader End ***** -->
+
+  <div class="sub-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-8">
+          <ul class="info">
+            <li><i class="fa fa-envelope"></i> Sistem Informasi Pendataan UMKM</li>
+            <li><i class="fa fa-map"></i> Gorontalo</li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <ul class="social-links">
+            <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="https://x.com/minthu" target="_blank"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="index.html" class="logo">
+                        <h1>SIAPAKU</h1>
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                      <li><a href="{{route('home')}}" class="active">Home</a></li>
+                      <li><a href="properties.html">Dashboard</a></li>
+                      <li><a href="{{route('catalog')}}">Layanan UMKM</a></li>
+                      <li><a href="{{route('contact')}}">Tentang Kami</a></li>
+                      <li><a href="{{route('umkm')}}">UMKM</a></li>
+                      <li><a href="{{route('login')}}"><i class="fa fa-person"></i> LOGIN</a></li>
+                  </ul>   
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+  </header>
 <!-- End Header Slider -->

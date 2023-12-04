@@ -22,204 +22,161 @@
 @endpush
 
 @section('content')
-    <!-- Start Slider  -->
-    <section class="the-slider" data-aos="fade-up">
+    <div class="main-banner">
+        <div class="owl-carousel owl-banner">
+            <div class="item item-1">
+                <div class="header-text">
+                    <span class="category">SIAPAKU, <em>Gorontalo</em></span>
+                    <h2>SIAPAKU!<br>LAYANAN UMKM GORONTALO</h2>
+                </div>
+            </div>
+            <div class="item item-2">
+                <div class="header-text">
+                    <span class="category">SIAPAKU, <em>Gorontalo</em></span>
+                    <h2>SIAPAKU!<br>LAYANAN UMKM GORONTALO</h2>
+                </div>
+            </div>
+            <div class="item item-3">
+                <div class="header-text">
+                    <span class="category">SIAPAKU, <em>Gorontalo</em></span>
+                    <h2>SIAPAKU!<br>LAYANAN UMKM GORONTALO</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="properties section">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="owl-carousel owl-theme">
-                        @foreach ($reviewSliders as $reviewSlider)
-                            <div class="item">
-                                <img src="{{ asset('uploads/review-slider/' . $reviewSlider->image) }}" alt="">
+            <div class="row">
+                <div class="col-lg-4 offset-lg-4">
+                    <div class="section-heading text-center">
+                        <h6>| Lokasi Maps UMKM</h6>
+                        <h2>UMKM Gorontalo✨</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-body" data-aos="fade-up">
+                <div class="mb-3" style="height: 60vh; width: 100%" id="map"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Data UMKM Section -->
+    <div class="properties section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 offset-lg-4">
+                    <div class="section-heading text-center">
+                        <h6>| Data UMKM</h6>
+                        <h2>UMKM Gorontalo✨</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($umkms as $item)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="item">
+                            <a href="{{route('umkm.detail', $item->id)}}"><img src="{{asset('temp/assets/images/property-01.jpg')}}" alt=""></a>
+                            <span class="category">{{$item->KlasifikasiUsaha->name}}</span>
+                            <h6>{{$item->nama_pemilik}}</h6>
+                            <h4><a href="property-details.html"></a></h4>
+                            <ul>
+                                <li>Desa/Kel: <span>{{$item->desa}}</span></li>
+                                <li>Jenis Usaha: <span>{{$item->JenisUsaha->name}}</span></li>
+                            </ul>
+                            <div class="main-button">
+                                <a href="{{route('umkm.detail', $item->id)}}">Lihat</a>
                             </div>
-                        @endforeach
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    <div class="contact section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 offset-lg-4">
+                    <div class="section-heading text-center">
+                        <h6>| Contact Us</h6>
+                        <h2>Get In Touch With Our Agents</h2>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- End Slider  -->
+    </div>
 
-    <!-- Start Slider  -->
-    <section class="the-slider pt-0" data-aos="fade-up">
+    <div class="contact-content">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="owl-carousel owl-theme">
-                        @foreach ($reviewSliders as $reviewSlider)
-                            <div class="item">
-                                <img src="{{ asset('uploads/review-slider/' . $reviewSlider->image) }}" alt="">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div id="map">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12469.776493332698!2d-80.14036379941481!3d25.907788681148624!2m3!1f357.26927939317244!2f20.870722720054623!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x88d9add4b4ac788f%3A0xe77469d09480fcdb!2sSunny%20Isles%20Beach!5e1!3m2!1sen!2sth!4v1642869952544!5m2!1sen!2sth"
+                            width="100%" height="500px" frameborder="0"
+                            style="border:0; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);"
+                            allowfullscreen=""></iframe>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="item phone">
+                                <img src="assets/images/phone-icon.png" alt="" style="max-width: 52px;">
+                                <h6>010-020-0340<br><span>Phone Number</span></h6>
                             </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Slider  -->
-
-   
-    <!-- Start Gallery -->
-    <section class="gallery" id="artikel">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="content-title" data-aos="fade-down">
-                        <div class="text-center">
-                            <h2 class="mb-3">Artikel</h2>
-                            <p class="mb-5">Related about &nbsp;<img src="{{ asset('assets/front/img/logo.jpg') }}"
-                                    alt="logo" width="120px"></p>
                         </div>
-                    </div>
-                    <div class="content-body" data-aos="fade-up">
-                        <div class="categories-links">
-                            <span class="category-link category-active" data-name="All">All</span>
-                            @foreach ($kategori as $category)
-                                <span class="category-link" data-name="{{ $category->slug }}">{{ $category->name }}</span>
-                            @endforeach
-                            <a href="{{ route('catalog') }}">See More ...</a>
-                        </div>
-
-                        <div class="galleries">
-                            @foreach ($artikels as $gallery)
-                                <div class="gallery-img" data-name="{{ App\Models\KategoriArtikel::find($gallery->kategori_artikel_id)->slug ?? '' }}">
-                                    <img src="{{ asset('uploads/catalog/image/' . $gallery->cover ?? '') }}"
-                                        alt="gallery-img">
-                                    <div class="gallery-overlay">
-                                        <h4 class="mb-0">{{ $gallery->title ?? '' }}</h4>
-                                        <span>{{App\Models\KategoriArtikel::find($gallery->kategori_artikel_id)->name}}</span>
-                                        <div class="gallery-button mt-2">
-                                            <a href="{{ route('artikel.detail', $gallery->id) }}"><i
-                                                    class="fa-solid fa-magnifying-glass"></i></a>
-                                            <button type="button" class="copy-link-button"
-                                                data-link="{{ route('artikel.detail', $gallery->id) }}"><i
-                                                    class="fa-solid fa-link"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Start Videos -->
-    <section class="videos" id="videos">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="content-title" data-aos="fade-down">
-                        <div class="text-center">
-                            <h2 class="mb-3">UMKM</h2>
-                            <p class="mb-5">Umkm  Yang Beradad Di Gorontalo </p>
-                        </div>
-                    </div>
-                    <div class="content-body" data-aos="fade-up">
-                        <div class="mb-3" style="height: 600px" id="map"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Videos -->
-
-    <!-- Start Information -->
-    <section class="information" id="information">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="content-title" data-aos="fade-right">
-                        <div class="text-left">
-                            <h2 class="mb-3">Information</h2>
-                            <p class="mb-5"> &nbsp;<img
-                                    src="{{ asset('assets/front/img/logo.jpg') }}" alt="logo" width="120px"></p>
-                        </div>
-                    </div>
-                    <div class="content-body" data-aos="fade-right">
-                        <div class="owl-carousel owl-theme">
-                            @foreach ($informations as $info)
-                                <div class="item">
-                                    <img src="{{ $info->link_image }}" alt="">
-                                    <div class="info-overlay">
-                                        <div class="info-title">
-                                            <h4>
-                                                {{ $info->title ?? '' }}
-                                            </h4>
-                                            <span class="mb-3">Sumber : {{ $info->source ?? '-' }}</span>
-                                            <a href="{{ $info->link_information }}" target="_blank">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </section>
-    <!-- End Information -->
-
-    <!-- Start Contact Us -->
-    <section class="contact-us" id="contact-us">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="content-title" data-aos="fade-down">
-                        <div class="text-center">
-                            <h2 class="mb-3">Contact Us</h2>
-                            <p class="mb-5"><img src="{{ asset('assets/front/img/logo.jpg') }}" alt="logo"
-                                    width="120px"></p>
-                        </div>
-                    </div>
-                    <div class="content-body" data-aos="fade-up">
-                        <div class="row justify-content-center align-items-center">
-                            <div class="col-12 col-lg-6">
-                                <iframe src="{{ $aboutUs->maps ?? '' }}" frameborder="0" class="maps-frame"></iframe>
-                            </div>
-                            <div class="col-12 col-lg-6">
-                                <div class="row">
-                                    <div class="col-12 col-lg-6">
-                                        <div class="contact-us-card">
-                                            <div class="contact-us-circle">
-                                                <i class="fa-solid fa-phone"></i>
-                                            </div>
-                                            <div class="contact-us-text">
-                                                <h5>Phone</h5>
-                                                <span>{{ $aboutUs->phone ?? '' }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6">
-                                        <div class="contact-us-card">
-                                            <div class="contact-us-circle">
-                                                <i class="fa-solid fa-envelope"></i>
-                                            </div>
-                                            <div class="contact-us-text">
-                                                <h5>Email</h5>
-                                                <span>{{ $aboutUs->email ?? '' }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="contact-us-card">
-                                            <div class="contact-us-circle">
-                                                <i class="fa-solid fa-clock"></i>
-                                            </div>
-                                            <div class="contact-us-text">
-                                                <h5>Opening Hours</h5>
-                                                <span>Senin-Sabtu 13.00–19.00</span>
-                                                <span>Minggu 13.00–18.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="col-lg-6">
+                            <div class="item email">
+                                <img src="assets/images/email-icon.png" alt="" style="max-width: 52px;">
+                                <h6>info@villa.co<br><span>Business Email</span></h6>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-5">
+                    <form id="contact-form" action="" method="post">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <label for="name">Full Name</label>
+                                    <input type="name" name="name" id="name" placeholder="Your Name..."
+                                        autocomplete="on" required>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <label for="email">Email Address</label>
+                                    <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*"
+                                        placeholder="Your E-mail..." required="">
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <label for="subject">Subject</label>
+                                    <input type="subject" name="subject" id="subject" placeholder="Subject..."
+                                        autocomplete="on">
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <label for="message">Message</label>
+                                    <textarea name="message" id="message" placeholder="Your Message"></textarea>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <button type="submit" id="form-submit" class="orange-button">Send Message</button>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-    </section>
+        </div>
+    </div>
     <!-- End Contact Us -->
 @endsection
 
@@ -271,7 +228,9 @@
             var lat = {{ $latitude }};
             var lng = {{ $longitude }};
             var marker = L.marker([lat, lng]).addTo(map);
-            marker.bindPopup('{{ $umkm->nama_pemilik . ', jenis usaha : ' . $umkm->JenisUsaha->name . ', Klasifikasi Usaha : ' . $umkm->KlasifikasiUsaha->name }}');
+            marker.bindPopup(
+                '{{ $umkm->nama_pemilik . ', jenis usaha : ' . $umkm->JenisUsaha->name . ', Klasifikasi Usaha : ' . $umkm->KlasifikasiUsaha->name }}'
+            );
         @endforeach
     </script>
 @endpush

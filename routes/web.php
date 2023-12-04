@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\accountController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\artikelController;
 use App\Http\Controllers\CatalogController;
@@ -28,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontPageController::class, 'index'])->name('home');
+Route::get('/contact', [FrontPageController::class, 'contact'])->name('contact');
 Route::get('/catalog', [FrontPageController::class, 'catalog'])->name('catalog');
 Route::get('/umkm', [FrontPageController::class, 'umkm'])->name('umkm');
 Route::get('/catalog/artikel/{id}', [FrontPageController::class, 'artikelDetail'])->name('artikel.detail');
@@ -57,6 +59,13 @@ Route::middleware(['auth', 'login-check'])->group(function () {
     Route::put('/admin/category/{id}/update', [CategoryController::class, 'update'])->name('admin.category.update');
     Route::delete('/admin/category/{id}/delete', [CategoryController::class, 'destroy'])->name('admin.category.delete');
 
+    Route::get('/admin/user', [accountController::class, 'index'])->name('admin.user');
+    Route::get('/admin/user/add', [accountController::class, 'create'])->name('admin.user.create');
+    Route::post('/admin/user/store', [accountController::class, 'store'])->name('admin.user.store');
+    Route::get('/admin/user/{id}/edit', [accountController::class, 'edit'])->name('admin.user.edit');
+    Route::put('/admin/user/{id}/update', [accountController::class, 'update'])->name('admin.user.update');
+    Route::delete('/admin/user/{id}/delete', [accountController::class, 'destroy'])->name('admin.user.delete');
+
     Route::get('/admin/jenis_usaha', [JenisUsahaController::class, 'index'])->name('admin.JenisUsaha');
     Route::get('/admin/jenis_usaha/add', [JenisUsahaController::class, 'create'])->name('admin.JenisUsaha.create');
     Route::post('/admin/jenis_usaha/store', [JenisUsahaController::class, 'store'])->name('admin.JenisUsaha.store');
@@ -73,6 +82,8 @@ Route::middleware(['auth', 'login-check'])->group(function () {
 
 
     Route::get('/admin/umkm', [UMKMController::class, 'index'])->name('admin.umkm');
+    Route::get('/admin/umkm/permintaan', [UMKMController::class, 'permintaan'])->name('admin.umkm.permintaan');
+    Route::put('/admin/umkm/permintaan/{id}/{status}/{message}', [UMKMController::class, 'status'])->name('admin.umkm.permintaan.edit');
     Route::post('/admin/umkm/import', [UMKMController::class, 'import'])->name('admin.umkm.import');
     Route::get('/admin/umkm/add', [UMKMController::class, 'create'])->name('admin.umkm.create');
     Route::post('/admin/umkm/store', [UMKMController::class, 'store'])->name('admin.umkm.store');

@@ -27,6 +27,8 @@ return new class extends Migration {
             $table->integer('jumlah_tenaga_kerja');
             $table->string('keterangan_jenis_usaha');
             $table->string('keterangan');
+            $table->enum('status', ['proses', 'terima', 'tolak'])->default('proses');
+            $table->string('message')->default('');
             $table->point('kordinat');
             $table->foreignId('jenis_usaha_id')->constrained('jenis_usahas')->onDelete('cascade');
             $table->foreignId('klasifikasi_usaha_id')->constrained('klasifikasi_usahas')->onDelete('cascade');

@@ -1,8 +1,11 @@
 <!-- Start Footer -->
-<footer class="footer">
-    <div class="text-center">
-        <img src="{{ asset('assets/front/img/logo.jpg') }}" alt="logo" width="120px">
-        <p class="mb-0 mt-2">Copyright  © {{ now()->format('Y') }} Tethuna. All Rights Reserved.</p>
+<footer>
+    <div class="container">
+      <div class="col-lg-8">
+        <p>Copyright © 2048 Villa Agency Co., Ltd. All rights reserved. 
+        
+        Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
+      </div>
     </div>
-</footer>
+  </footer>
 <!-- End Footer -->

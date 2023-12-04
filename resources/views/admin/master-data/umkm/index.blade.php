@@ -77,7 +77,6 @@
                         </div>
                         <a class="btn btn-info" href="{{ route('admin.umkm.download') }}" class="btn btn-primary">Download
                             Template</a>
-
                         <div class="form-actions">
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-shop" data-bs-dismiss="modal">Close</button>
@@ -128,6 +127,8 @@
                                 <th>Tenaga Kerja (Perempuan)</th>
                                 <th>Jumlah Tenaga Kerja</th>
                                 <th>Keterangan</th>
+                                <th>Status</th>
+                                <th>Pesan</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -147,8 +148,17 @@
                                     <td>{{ $result->tenaga_kerja_p }}</td>
                                     <td>{{ $result->jumlah_tenaga_kerja }}</td>
                                     <td>{{ $result->keterangan }}</td>
-
-
+                                    <td
+                                        class="font-weight-bold
+                                    @if ($result->status == 'proses') bg-warning
+                                    @elseif($result->status == 'terima') bg-success
+                                    @elseif($result->status == 'tolak') bg-danger @endif
+                                ">
+                                    
+                                    {{ $result->status }}</td>
+                                    <td>
+                                        {{$result->message}}
+                                    </td>
                                     <td>
                                         <a href="{{ route('admin.' . $active . '.edit', $result->id) }}"
                                             class="btn btn-sm btn-warning">

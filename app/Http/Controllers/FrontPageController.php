@@ -18,7 +18,10 @@ class FrontPageController extends Controller
 {
     public function index()
     {
-        $umkms = UMKM::where('is_Umum', true)->get();
+        $umkms = UMKM::where('is_Umum', true)
+            ->where('status', 'terima')
+            ->get();
+
         $artikels = artikel::all();
         $kategoriArtikel = KategoriArtikel::all();
         return view('front.home', [
@@ -32,6 +35,16 @@ class FrontPageController extends Controller
             'umkms' => $umkms,
             'artikels' => $artikels,
             'kategori' => $kategoriArtikel
+        ]);
+    }
+
+    public function contact()
+    {
+        return view('front.contact', [
+            'title' => 'Contact',
+            'mainSliders' => MainSlider::latest()->get(),
+            'categories' => KategoriArtikel::orderBy('name', 'ASC')->get(),
+            'products' => '',
         ]);
     }
 
@@ -50,13 +63,15 @@ class FrontPageController extends Controller
 
     public function umkm()
     {
-        $catalogs = UMKM::latest()->filter(request(['search', 'category_product']))->paginate(16)->withQueryString();
+        $catalogs = UMKM::where('is_Umum', true)
+            ->where('status', 'terima')->get();
 
         return view('front.umkm', [
             'title' => 'Catalog',
             'mainSliders' => MainSlider::latest()->get(),
             'categories' => JenisUsaha::orderBy('name', 'ASC')->get(),
-            'products' => $catalogs,
+            'klasifikasiUsahas' => JenisUsaha::orderBy('name', 'ASC')->get(),
+            'umkms' => $catalogs,
         ]);
     }
 
@@ -80,8 +95,8 @@ class FrontPageController extends Controller
         $no_hp = str_replace('-', '', $no_hp);
 
         $related_products = Catalog::where('category_id', $product->category_id)
-        ->where('id', '!=', $product->id) // Exclude the current product
-        ->latest()->take('4')->get();
+            ->where('id', '!=', $product->id) // Exclude the current product
+            ->latest()->take('4')->get();
 
         return view('front.product-detail', [
             'title' => 'Product | ' . $product->name,

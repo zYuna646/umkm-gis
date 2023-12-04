@@ -174,83 +174,75 @@
 @endpush
 
 @section('content')
-    <!-- Start Header Slider-->
-    <header class="header-slider">
+    <div class="page-heading header-text">
         <div class="container">
-            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @foreach ($mainSliders as $key => $mainSlider)
-                        <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
-                            <img src="{{ asset('uploads/main-slider/' . $mainSlider->image) }}" class="d-block w-100"
-                                alt="Slider Image">
-                            <div class="carousel-caption">
-                                <h1>{{ $mainSlider->title ?? '' }}</h1>
-                                <p class="text-wrap slider-subtitle">{{ $mainSlider->sub_title ?? '' }}</p>
-                                <a href="{{ $mainSlider->link ?? '' }}" class="btn btn-custom-transparent">Shop Now</a>
-                            </div>
-                        </div>
-                    @endforeach
+            <div class="row">
+                <div class="col-lg-12">
+                    <span class="breadcrumb"><a href="#">DATA UMKM</a> / DETAILS</span>
+                    <h3>DETAILS</h3>
                 </div>
             </div>
         </div>
-    </header>
-    <!-- End Header Slider -->
+    </div>
 
-    <section class="product-detail">
+    <div class="single-property section">
         <div class="container">
-            <div class="card bg-transparent border-0 rounded-0">
-                <div class="card-body p-0">
-                    <div class="row g-4">
-                        <div class="col-lg-5">
-                            <div class="mb-3" style="height: 450px" id="map"></div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-image">
+                        <div class="content-body" data-aos="fade-up">
+                            <div class="mb-3" style="height: 60vh; width: 100%" id="map"></div>
                         </div>
-                        <div class="col-lg-7">
-                            <h3 class="fw-semibold">{{ $umkm->nama_pemilik ?? '' }}</h3>
-                          
-                            <table id="table_config" class="table align-middle text-nowrap">
-                                <thead class="header-item">
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                        <tr>
-                                            <td>alamat : </td>
-                                            <td>{{ $umkm->alamat }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>desa - kelurahan : </td>
-                                            <td>{{ $umkm->desa }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>kecamatan : </td>
-                                            <td>{{ $umkm->kecamatan }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>kota - kabupaten : </td>
-                                            <td>{{ $umkm->kabupaten }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>jenis usaha : </td>
-                                            <td>{{ App\Models\JenisUsaha::find($umkm->jenis_usaha_id)->name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>klasifikasi usaha : </td>
-                                            <td>{{ App\Models\KlasifikasiUsaha::find($umkm->klasifikasi_usaha_id)->name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Keterangan Jenis Usaha : </td>
-                                            <td>  {!! $umkm->keterangan_jenis_usaha !!}</td>
-                                        </tr>
-                                </tbody>
-                            </table>
+                    </div>
+
+                    <div class="main-content">
+                        <span class="category">{{$umkm->KlasifikasiUsaha->name}}</span>
+                        <h4>{{$umkm->nama_pemilik}}</h4>
+                    </div>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Detail UMKM
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>Alamat : </strong> {{$umkm->Alamat}}
+                                    <br>
+                                    <br>
+                                    <strong>Nama Pemilik : </strong> {{$umkm->nama_pemilik}}
+                                    <br>
+                                    <br>
+                                    <strong>Desa - Kelurahan : </strong> {{$umkm->desa}}
+                                    <br>
+                                    <br>
+                                    <strong>Kecamatan : </strong> {{$umkm->kecamatan}}
+                                    <br>
+                                    <br>
+                                    <strong>Kota - Kabupaten : </strong> {{$umkm->kabupaten}}
+                                    <br>
+                                    <br>
+                                    <strong>Jenis Usaha : </strong> {{$umkm->JenisUsaha->name}}
+                                    <br>
+                                    <br>
+                                    <strong>Klasifikasi Usaha : </strong> {{$umkm->KlasifikasiUsaha->name}}
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    </div>
 @endsection
 
 @push('scripts')
@@ -316,6 +308,8 @@
         var lat = {{ $latitude }};
         var lng = {{ $longitude }};
         var marker = L.marker([lat, lng]).addTo(map);
-        marker.bindPopup('{{ $umkm->nama_pemilik . ', jenis usaha : ' . $umkm->JenisUsaha->name . ', Klasifikasi Usaha : ' . $umkm->KlasifikasiUsaha->name }}');
+        marker.bindPopup(
+            '{{ $umkm->nama_pemilik . ', jenis usaha : ' . $umkm->JenisUsaha->name . ', Klasifikasi Usaha : ' . $umkm->KlasifikasiUsaha->name }}'
+        );
     </script>
 @endpush

@@ -1,71 +1,67 @@
-<nav class="navbar navbar-expand-lg fixed-top" id="navbar">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="{{ asset('assets/front/img/logo.jpg') }}" alt="Logo" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fa-solid fa-bars-staggered"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            @if (Route::is('home'))
-                <ul class="navbar-nav m-auto gap-0 gap-lg-2">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#artikel">Berita & Artikel</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#layanan">Layanan UMKM</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#information">Information</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact-us">Contact Us</a>
-                    </li>
-                </ul>
+<!-- Start Header Slider-->
 
-                <div>
-                    <a class="btn btn-nav-link" href="{{ route('umkm') }}">
-                        <i class="fa-solid fa-table-list"></i>&nbsp;
-                        UMKM
-                    </a>
-                    @auth
-                        <a class="btn btn-nav-link2" href="{{ route('admin.dashboard') }}">
-                            Back to Dashboard &nbsp;
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    @endauth
-                    @guest
-                        <a class="btn btn-nav-link" href="{{ route('login') }}">
-                            <i class="fa-solid fa-user"></i>&nbsp;
-                            Login
-                        </a>
-                    @endguest
-                </div>
-            @else
-                <div class="ms-auto">
-                    <a class="btn btn-nav-link" href="{{ url('/') }}">
-                        <i class="fa-solid fa-home"></i>&nbsp;
-                        Home
-                    </a>
-                    @if (Route::is('product.detail'))
-                        <a class="btn btn-nav-link" href="{{ url('/catalog') }}">
-                            <i class="fa-solid fa-table-list"></i>&nbsp;
-                            Catalog
-                        </a>
-                    @endif
-                    @auth
-                        <a class="btn btn-nav-link2" href="{{ route('admin.dashboard') }}">
-                            Back to Dashboard &nbsp;
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    @endauth
-
-                </div>
-            @endif
+<!-- ***** Preloader Start ***** -->
+@if (Route::currentRouteName() != 'home')
+    <div id="js-preloader" class="js-preloader">
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </div>
-</nav>
+    <!-- ***** Preloader End ***** -->
+
+    <div class="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <ul class="info">
+                        <li><i class="fa fa-envelope"></i> Sistem Informasi Pendataan UMKM</li>
+                        <li><i class="fa fa-map"></i> Gorontalo</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <ul class="social-links">
+                        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="https://x.com/minthu" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="index.html" class="logo">
+                            <h1>SIAPAKU</h1>
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li><a href="{{ route('home') }}"
+                                    @if (Route::currentRouteName() == 'home') class="active" @endif>Home</a></li>
+                            <li><a href="properties.html">Dashboard</a></li>
+                            <li><a href="{{route('catalog')}}" @if (Route::currentRouteName() == 'catalog') class="active" @endif>Layanan UMKM</a></li>
+                            <li><a href="{{ route('contact') }}"   @if (Route::currentRouteName() == 'contact') class="active" @endif>Tentang Kami</a></li>
+                            <li><a href="{{ route('umkm') }}"   @if (Route::currentRouteName() == 'umkm') class="active" @endif>UMKM</a></li>
+                            <li><a href="{{ route('login') }}"><i class="fa fa-person"></i> LOGIN</a></li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+@endif

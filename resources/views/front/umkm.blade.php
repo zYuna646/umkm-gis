@@ -1,190 +1,67 @@
 @extends('front.layouts.app')
 
 @push('styles')
-    <style>
-        .catalog {
-            padding-top: 0 !important;
-        }
-
-        .carousel-item img {
-            width: 100%;
-            height: 400px !important;
-            object-fit: cover;
-        }
-
-        .header-slider .carousel .carousel-item .carousel-caption {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            text-align: left;
-            color: white;
-            padding: 20px;
-        }
-
-        .header-slider .carousel .carousel-item .carousel-caption h1 {
-            font-size: 40px;
-            font-weight: 700;
-        }
-
-        .header-slider .carousel .carousel-item .carousel-caption p {
-            font-size: 14px;
-            font-weight: 300;
-            margin-bottom: 20px;
-            text-wrap: wrap;
-            width: 60%;
-        }
-
-        .btn-custom-transparent {
-            background-color: transparent;
-            color: var(--light-color);
-            border: none;
-            border-radius: 0;
-            padding: 6px 20px;
-            font-size: 14px;
-            font-weight: 500;
-            border: 2px solid var(--light-color);
-            transition: all 0.3s;
-        }
-
-        .btn-custom-transparent:hover {
-            background-color: var(--light-color);
-            border: 2px solid var(--light-color);
-            color: var(--dark-color);
-        }
-
-        @media (max-width: 991.98px) {
-            .carousel-item img {
-                height: 350px !important;
-            }
-        }
-
-        @media (max-width: 767.98px) {
-            .carousel-item img {
-                width: 100%;
-                height: 250px !important;
-                object-fit: cover;
-            }
-        }
-
-        .page-link {
-            background-color: transparent !important;
-            color: #000 !important;
-            margin: 0 10px;
-            width: 30px;
-            height: 30px;
-            padding: 5px 12px;
-            font-size: 12px;
-            border-radius: 50%;
-        }
-
-        .active>.page-link,
-        .page-link.active {
-            background-color: #000 !important;
-            color: #fff !important;
-            border-color: #fff !important;
-        }
-    </style>
 @endpush
 
 @section('content')
-    <!-- Start Header Slider-->
-    <header class="header-slider">
+    <div class="page-heading header-text">
         <div class="container">
-            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @foreach ($mainSliders as $key => $mainSlider)
-                        <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
-                            <img src="{{ asset('uploads/main-slider/' . $mainSlider->image) }}" class="d-block w-100"
-                                alt="Slider Image">
-                            <div class="carousel-caption">
-                                <h1>{{ $mainSlider->title ?? '' }}</h1>
-                                <p class="text-wrap slider-subtitle">{{ $mainSlider->sub_title ?? '' }}</p>
-                                <a href="{{ $mainSlider->link ?? '' }}" class="btn btn-custom-transparent">Shop Now</a>
-                            </div>
-                        </div>
-                    @endforeach
+            <div class="row">
+                <div class="col-lg-12">
+                    <span class="breadcrumb"><a href="#">Landing Page</a> / DATA UMKM</span>
+                    <h3>DATA UMKM</h3>
                 </div>
             </div>
         </div>
-    </header>
-    <!-- End Header Slider -->
+    </div>
 
-    <!-- Start Catalog -->
-    <section class="catalog">
+    <div class="section properties">
         <div class="container">
+            <ul class="properties-filter">
+                <li>
+                    <a class="is_active" href="#!" data-filter="*">Show All</a>
+                </li>
+                @foreach ($klasifikasiUsahas as $klasifikasiUsaha)
+                    <li>
+                        <a href="#!"
+                            data-filter=".{{ strtolower($klasifikasiUsaha->name) }}">{{ $klasifikasiUsaha->name }}</a>
+                    </li>
+                @endforeach
+            </ul>
 
-            <div class="row g-2 g-lg-4 my-4 align-items-center catalog-filter">
-                <div class="col-12 col-lg-9">
-                    <form action="/umkm" method="get">
-                        @if (request('category_product'))
-                            <input type="hidden" name="category_product" value="{{ request('category_product') }}">
-                        @endif
-                        <input type="text" name="search" class="form-control" placeholder="Cari UMKM ..."
-                            value="{{ request('search') }}">
-                    </form>
-                </div>
-                <div class="col-12 col-lg-3">
-                    <div class="dropdown catalog-dropdown">
-                        <button class="btn btn-category w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            @php
-                                use App\Models\JenisUsaha;
-                            @endphp
-                            {{ request('category_product') ?? 'Jenis Usaha' }}
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('umkm') }}">All</a></li>
-                            @foreach ($categories as $category)
-                                <li><a class="dropdown-item"
-                                        href="{{ route('umkm', ['category_product' => $category->slug]) }}">{{ $category->name }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-
-            <div class="row g-3 g-xl-4">
-                @foreach ($products as $product)
-                    <div class="col-6 col-md-4 col-xl-3">
-                        <a href="{{ route('umkm.detail', $product->id) }}" class="brand-card">
-                            <div class="brand-img">
-                                <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt="image">
-                                <div class="brand-overlay">
-                                    <span class="brand-category">
-                                        <i class="fa-solid fa-tag"></i>
-                                        {{ $product->category->name ?? '' }}
-                                    </span>
-                                </div>
+            <div class="row properties-box">
+                @foreach ($umkms as $item)
+                    <div
+                        class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 {{ strtolower($item->JenisUsaha->name) }}">
+                        <div class="item">
+                            <a href="{{ route('umkm.detail', $item->id) }}"><img
+                                    src="{{ asset('temp/assets/images/property-01.jpg') }}" alt=""></a>
+                            <span class="category">{{ $item->KlasifikasiUsaha->name }}</span>
+                            <h6>{{ $item->nama_pemilik }}</h6>
+                            <h4><a href="{{ route('umkm.detail', $item->id) }}"></a></h4>
+                            <ul>
+                                <li>Desa/Kel: <span>{{ $item->desa }}</span></li>
+                                <li>Jenis Usaha: <span>{{ $item->JenisUsaha->name }}</span></li>
+                            </ul>
+                            <div class="main-button">
+                                <a href="{{ route('umkm.detail', $item->id) }}">Lihat</a>
                             </div>
-                            <div class="brand-title">
-                                <h6>{{ $product->nama_pemilik }}</h6>
-                                <p>Desa : {{ $product->desa }}</p>
-                                <p>Kecamatan : {{ $product->kecamatan }}</p>
-                                <p>Kabupaten : {{ $product->kabupaten}}</p>
-                                <p>Jenis Usaha : {{ App\Models\JenisUsaha::find($product->jenis_usaha_id)->name}}</p>
-                                <p>Klasifikasi Usaha : {{ App\Models\KlasifikasiUsaha::find($product->klasifikasi_usaha_id)->name}}</p>
-
-                            </div>
-                        </a>
+                        </div>
                     </div>
                 @endforeach
             </div>
 
-            @if (count($products) > 0)
-                <div class="d-flex justify-content-center mt-4">
-                    {{ $products->links() }}
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="pagination">
+                        {{-- <li><a class="is_active"href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">>></a></li> --}}
+                    </ul>
                 </div>
-            @endif
+            </div>
         </div>
-    </section>
+    </div>
     <!-- End Catalog -->
 @endsection

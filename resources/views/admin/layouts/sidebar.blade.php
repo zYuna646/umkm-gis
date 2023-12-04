@@ -30,6 +30,19 @@
                 </li>
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">User</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link @if ($active == 'user') active @endif"
+                        href="{{ route('admin.user') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-user"></i>
+                        </span>
+                        <span class="hide-menu">User</span>
+                    </a>
+                </li>
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Kategori</span>
                 </li>
                 <li class="sidebar-item">
@@ -81,7 +94,19 @@
                         <span class="hide-menu">Artikel</span>
                     </a>
                 </li>
-                
+
+                @if (auth()->user()->role == 'bidang')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link @if ($active == 'permintaan') active @endif"
+                            href="{{ route('admin.umkm.permintaan') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-news"></i>
+                            </span>
+                            <span class="hide-menu">Permintaan UMKM</span>
+                        </a>
+                    </li>
+                @endif
+
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Settings</span>
