@@ -278,7 +278,7 @@ class UMKMController extends Controller
             'umkms' => $produksi->where('status', 'terima'),
         ];
         $pdf = PDF::loadView('admin.master-data.umkm.report', $data)->setPaper('A4', 'portrait');
-        return $pdf->download('Produksi Boneva.pdf');
+        return $pdf->download('Laporan UMKM.pdf');
 
     }
 
@@ -307,7 +307,7 @@ class UMKMController extends Controller
             'umkms' => $produksi,
         ];
         $pdf = PDF::loadView('admin.master-data.umkm.pengajuan', $data)->setPaper('A4', 'portrait');
-        return $pdf->download('Produksi Boneva.pdf');
+        return $pdf->download('Laporan UMKM.pdf');
 
     }
 
