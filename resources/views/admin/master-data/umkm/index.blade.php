@@ -30,26 +30,32 @@
                     </div>
                 </div>
                 <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
-                    <a style="margin-right: 2.5%" href="{{ route('admin.umkm.create') }}"
-                        class="btn btn-info d-flex align-items-center">
-                        <i class="ti ti-plus text-white me-1 fs-5"></i> Tambah {{ $title ?? '' }}
-                    </a>
+                    @if (auth()->user()->role == 'admin')
+                        <a style="margin-right: 2.5%" href="{{ route('admin.umkm.create') }}"
+                            class="btn btn-info d-flex align-items-center">
+                            <i class="ti ti-plus text-white me-1 fs-5"></i> Tambah {{ $title ?? '' }}
+                        </a>
+                        <a href="#" class="btn btn-success d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">
+                            <!-- Perubahan di sini -->
+                            <i class="ti ti-plus text-white me-1 fs-5"></i> Import Excel
+                        </a>
+                    @endif
 
-                    <a href="#" class="btn btn-success d-flex align-items-center" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">
-                        <!-- Perubahan di sini -->
-                        <i class="ti ti-plus text-white me-1 fs-5"></i> Import Excel
-                    </a>
-                    <a style="margin-left:2% " href=# class="btn btn-info d-flex align-items-center" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">
-                        <i class="ti ti-plus text-white me-1 fs-5"></i> Buat Laporan
-                    </a>
+
+                    @if (auth()->user()->role != 'admin')
+                        <a style="margin-left:2% " href=# class="btn btn-info d-flex align-items-center"
+                            data-bs-toggle="modal" data-bs-target="#staticBackdropUmkm">
+                            <i class="ti ti-plus text-white me-1 fs-5"></i> Buat Laporan
+                        </a>
+                    @endif
+
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="staticBackdropUmkm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -102,6 +108,54 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="mb-3">
+                                        <h5>Jenis Usaha</h5>
+                                        <div class="table-responsive">
+                                            <table class="table align-middle text-nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nama</th>
+                                                        <th>Kode</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($jenisUsaha as $item)
+                                                        <tr>
+                                                            <td>
+                                                                {{ $item->name }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $item->id }}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <h5>Klasifikasi Usaha</h5>
+                                        <div class="table-responsive">
+                                            <table class="table align-middle text-nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nama</th>
+                                                        <th>Kode</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($klasifikasiUsaha as $item)
+                                                        <tr>
+                                                            <td>
+                                                                {{ $item->name }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $item->id }}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+
                                         <label class="control-label mb-1">Upload Excel<span
                                                 class="text-danger">*</span></label>
                                         <input type="file" name="excel"
@@ -171,7 +225,9 @@
                                 <th>Keterangan</th>
                                 <th>Status</th>
                                 <th>Pesan</th>
-                                <th>Action</th>
+                                @if (auth()->user()->role == 'admin')
+                                    <th>Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -195,27 +251,29 @@
                                     @if ($result->status == 'proses') bg-warning
                                     @elseif($result->status == 'terima') bg-success
                                     @elseif($result->status == 'tolak') bg-danger @endif
-                                ">
+                                 ">
 
                                         {{ $result->status }}</td>
                                     <td>
                                         {{ $result->message }}
                                     </td>
-                                    <td>
-                                        <a href="{{ route('admin.' . $active . '.edit', $result->id) }}"
-                                            class="btn btn-sm btn-warning">
-                                            <i class="ti ti-pencil"></i>
-                                        </a>
-                                        <form action="{{ route('admin.' . $active . '.delete', $result->id) }}"
-                                            method="post" class="d-inline">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure?')">
-                                                <i class="ti ti-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
+                                    @if (auth()->user()->role == 'admin')
+                                        <td>
+                                            <a href="{{ route('admin.' . $active . '.edit', $result->id) }}"
+                                                class="btn btn-sm btn-warning">
+                                                <i class="ti ti-pencil"></i>
+                                            </a>
+                                            <form action="{{ route('admin.' . $active . '.delete', $result->id) }}"
+                                                method="post" class="d-inline">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Are you sure?')">
+                                                    <i class="ti ti-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>

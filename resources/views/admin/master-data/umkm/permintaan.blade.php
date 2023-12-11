@@ -115,8 +115,9 @@
                                 <th>Tenaga Kerja (Perempuan)</th>
                                 <th>Jumlah Tenaga Kerja</th>
                                 <th>Keterangan</th>
-
-                                <th>Action</th>
+                                @if (auth()->user()->role == 'bidang')
+                                    <th>Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -135,7 +136,7 @@
                                     <td>{{ $result->tenaga_kerja_p }}</td>
                                     <td>{{ $result->jumlah_tenaga_kerja }}</td>
                                     <td>{{ $result->keterangan }}</td>
-
+                                    @if (auth()->user()->role == 'bidang')
                                     <td>
                                         <div class="btn-group">
                                             <form
@@ -210,6 +211,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>

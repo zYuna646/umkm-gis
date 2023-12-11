@@ -95,14 +95,14 @@
                     </a>
                 </li>
 
-                @if (auth()->user()->role == 'bidang')
+                @if (auth()->user()->role == 'bidang' || auth()->user()->role == 'dinas')
                     <li class="sidebar-item">
                         <a class="sidebar-link @if ($active == 'permintaan') active @endif"
                             href="{{ route('admin.umkm.permintaan') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-news"></i>
                             </span>
-                            <span class="hide-menu">Permintaan UMKM</span>
+                            <span class="hide-menu">Pengajuan UMKM</span>
                         </a>
                     </li>
                 @endif

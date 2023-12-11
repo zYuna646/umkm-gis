@@ -7,21 +7,20 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
-class UMKMImportClass implements ToCollection
-{
+class UMKMImportClass implements ToCollection {
     /**
      * @param Collection $collection
      */
-    public function collection(Collection $collection)
-    {
-        foreach ($collection as $index => $value) {
-            $koordinat_maps = $value['1'];
-            list($latitude, $longitude) = explode("  Lang: ", str_replace("Lat: ", "", $koordinat_maps));
-            $point = DB::raw("POINT($latitude, $longitude)");
+    public function collection(Collection $collection) {
+        foreach($collection as $index => $value) {
 
-            if ($index == 0) {
+
+            if($index == 0) {
 
             } else {
+                $koordinat_maps = $value['1'];
+                list($latitude, $longitude) = explode("  Lang: ", str_replace("Lat: ", "", $koordinat_maps));
+                $point = DB::raw("POINT($latitude, $longitude)");
                 UMKM::create([
                     'alamat' => $value['0'],
                     'kordinat' => $point,

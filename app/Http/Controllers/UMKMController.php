@@ -20,11 +20,15 @@ class UMKMController extends Controller
      */
     public function index()
     {
+        $klasifikasiUsaha = KlasifikasiUsaha::all();
+        $jenisUsaha = JenisUsaha::all();
         return view('admin.master-data.umkm.index', [
             'title' => 'umkm',
             'subtitle' => '',
             'active' => 'umkm',
             'datas' => UMKM::latest()->get(),
+            'jenisUsaha' => $jenisUsaha,
+            'klasifikasiUsaha' => $klasifikasiUsaha,
         ]);
     }
 
