@@ -104,19 +104,12 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Pemilik</th>
-                                <th>Desa - Kelurahan</th>
-                                <th>Kecamatan</th>
                                 <th>Kota - Kabupaten</th>
                                 <th>Jenis Usaha</th>
                                 <th>Klasifikasi Usaha</th>
-                                <th>Pendapatan Aset</th>
-                                <th>Pendapatan Omset</th>
-                                <th>Tenaga Kerja (Laki-Laki)</th>
-                                <th>Tenaga Kerja (Perempuan)</th>
-                                <th>Jumlah Tenaga Kerja</th>
-                                <th>Keterangan</th>
+                                <th>Action</th>
                                 @if (auth()->user()->role == 'bidang')
-                                    <th>Action</th>
+                                    <th>Pengajuan</th>
                                 @endif
                             </tr>
                         </thead>
@@ -125,93 +118,94 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $result->nama_pemilik }}</td>
-                                    <td>{{ $result->desa }}</td>
-                                    <td>{{ $result->kecamatan }}</td>
+
                                     <td>{{ $result->kabupaten }}</td>
                                     <td>{{ \App\Models\JenisUsaha::find($result->jenis_usaha_id)->name }}</td>
                                     <td>{{ \App\Models\KlasifikasiUsaha::find($result->klasifikasi_usaha_id)->name }}</td>
-                                    <td>{{ $result->pendapatan_aset }}</td>
-                                    <td>{{ $result->pendapatan_omset }}</td>
-                                    <td>{{ $result->tenaga_kerja_l }}</td>
-                                    <td>{{ $result->tenaga_kerja_p }}</td>
-                                    <td>{{ $result->jumlah_tenaga_kerja }}</td>
-                                    <td>{{ $result->keterangan }}</td>
+
                                     @if (auth()->user()->role == 'bidang')
-                                    <td>
-                                        <div class="btn-group">
-                                            <form
-                                                action="{{ route('admin.umkm.permintaan.edit', [
-                                                    'id' => $result->id,
-                                                    'status' => 'terima',
-                                                    'message' => ' ',
-                                                ]) }}"
-                                                method="post" class="d-inline">
-                                                @csrf
-                                                @method('put') {{-- Use this line to override the method --}}
-                                                <button type="submit" class="btn btn-success"
-                                                    onclick="return confirm('Are you sure?')">Terima</button>
-                                            </form>
+                                        <td>
+                                            <div class="btn-group">
+                                                <form
+                                                    action="{{ route('admin.umkm.permintaan.edit', [
+                                                        'id' => $result->id,
+                                                        'status' => 'terima',
+                                                        'message' => ' ',
+                                                    ]) }}"
+                                                    method="post" class="d-inline">
+                                                    @csrf
+                                                    @method('put') {{-- Use this line to override the method --}}
+                                                    <button type="submit" class="btn btn-success"
+                                                        onclick="return confirm('Are you sure?')">Terima</button>
+                                                </form>
 
-                                            <a href="#" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop">
-                                                Tolak
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
+                                                <a href="#" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#staticBackdrop">
+                                                    Tolak
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
 
-                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Pesan</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form
-                                                        action="{{ route('admin.umkm.permintaan.edit', [
-                                                            'id' => $result->id,
-                                                            'status' => 'tolak',
-                                                            'message' => ' ',
-                                                        ]) }}"
-                                                        method="post" enctype="multipart/form-data">
-                                                        @csrf
-                                                        @method('put')
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="mb-3">
-                                                                        <label class="control-label mb-1">Keterangan<span
-                                                                                class="text-danger">*</span></label>
-                                                                        <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror"></textarea>
-                                                                        @error('keterangan')
-                                                                            <small class="invalid-feedback">
-                                                                                {{ $message }}
-                                                                            </small>
-                                                                        @enderror
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Pesan</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form
+                                                            action="{{ route('admin.umkm.permintaan.edit', [
+                                                                'id' => $result->id,
+                                                                'status' => 'tolak',
+                                                                'message' => ' ',
+                                                            ]) }}"
+                                                            method="post" enctype="multipart/form-data">
+                                                            @csrf
+                                                            @method('put')
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="mb-3">
+                                                                            <label
+                                                                                class="control-label mb-1">Keterangan<span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror"></textarea>
+                                                                            @error('keterangan')
+                                                                                <small class="invalid-feedback">
+                                                                                    {{ $message }}
+                                                                                </small>
+                                                                            @enderror
 
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
-                                                        <div class="form-actions">
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-shop"
-                                                                    data-bs-dismiss="modal">Close</button>
-                                                                <button type="submit"
-                                                                    class="btn btn-shop">Submit</button>
+                                                            <div class="form-actions">
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-shop"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-shop">Submit</button>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
+                                                        </form>
+                                                    </div>
 
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     @endif
+                                    <td>
+                                        <a href="{{route('umkm.detail', ['id' => $result->id])}}" class="btn btn-sm btn-secondary">
+                                            <i class="ti ti-eye"></i>
+                                        </a>
+                                    </td>
+
                                 </tr>
                             @endforeach
                         </tbody>

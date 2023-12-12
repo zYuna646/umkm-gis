@@ -112,33 +112,6 @@
                     <span class="hide-menu">Settings</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link @if ($active == 'about-us') active @endif"
-                        href="{{ route('admin.about-us') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-info-hexagon"></i>
-                        </span>
-                        <span class="hide-menu">About Us</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link @if ($active == 'main-slider') active @endif"
-                        href="{{ route('admin.main-slider') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-slideshow"></i>
-                        </span>
-                        <span class="hide-menu">Main Slider</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link @if ($active == 'review-slider') active @endif"
-                        href="{{ route('admin.review-slider') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-slideshow"></i>
-                        </span>
-                        <span class="hide-menu">Review Slider</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
                     <a class="sidebar-link @if ($active == 'account-setting') active @endif"
                         href="{{ route('admin.account-setting') }}" aria-expanded="false">
                         <span>

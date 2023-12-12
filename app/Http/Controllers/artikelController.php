@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\artikel;
+use App\Models\JenisUsaha;
 use App\Models\KategoriArtikel;
+use App\Models\KlasifikasiUsaha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -56,9 +58,9 @@ class artikelController extends Controller
                 'parent.required' => 'Artikel name is required!',
             ]
         );
- 
+
         $image = $request->file('cover');
-        $image_name = time() . '-' . rand(1,100) . '-' . $request->judul . '.' . $image->extension();
+        $image_name = time() . '-' . rand(1, 100) . '-' . $request->judul . '.' . $image->extension();
         $image->move(public_path('uploads/catalog/image'), $image_name);
 
         artikel::create([
@@ -84,6 +86,7 @@ class artikelController extends Controller
             'subtitle' => 'Edit Artikel',
             'active' => 'artikel',
             'data' => artikel::findOrFail($id),
+            'KategoriArtikel' => KategoriArtikel::all()
         ]);
     }
 
@@ -92,23 +95,49 @@ class artikelController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $this->validate(
             $request,
             [
-                'artikel_name' => 'required|unique:jenis_usahas,name,' . $id,
+                'parent' => 'required',
+                'judul' => 'required',
+                'keywords' => 'required',
+                'deskripsi' => 'required',
+                'isi_artikel' => 'required',
             ],
             [
-                'artikel_name.required' => 'Artikel name is required!',
-                'artikel_name.unique' => 'Artikel name is already exists!',
+                'parent.required' => 'Artikel name is required!',
             ]
         );
 
         $artikel = artikel::findOrFail($id);
+        $image = $request->file('cover');
 
-        $artikel->update([
-            'name' => $request->artikel_name,
-            'slug' => Str::slug($request->artikel_name),
-        ]);
+
+        if ($image != null) {
+            $image_name = time() . '-' . rand(1, 100) . '-' . $request->judul . '.' . $image->extension();
+            $image->move(public_path('uploads/catalog/image'), $image_name);
+
+            $artikel->update([
+                'title' => $request->judul,
+                'kategori_artikel_id' => $request->parent,
+                'keywords' => $request->keywords,
+                'deskripsi' => $request->deskripsi,
+                'isi_artikel' => $request->isi_artikel,
+                'cover' => $image_name
+            ]);
+
+        } else {
+            $artikel->update([
+                'title' => $request->judul,
+                'kategori_artikel_id' => $request->parent,
+                'keywords' => $request->keywords,
+                'deskripsi' => $request->deskripsi,
+                'isi_artikel' => $request->isi_artikel,
+            ]);
+        }
+
+
 
         return redirect()->route('admin.artikel')->with('success', 'Artikel has been updated!');
     }

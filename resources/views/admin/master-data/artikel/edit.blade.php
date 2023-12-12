@@ -19,7 +19,7 @@
     </div>
 
     <div class="card">
-        <form action="{{ route('admin.KlasifikasiUsaha.update', $data->id) }}" method="post">
+        <form action="{{ route('admin.artikel.update', $data->id) }}" method="post">
             @csrf
             @method('put')
             <div class="card-body">
@@ -27,121 +27,17 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="mb-3">
-                            <label class="control-label mb-1">Alamat<span class="text-danger">*</span></label>
-                            <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror"
-                                placeholder="..." value="{{ old('alamat') }}" />
-                            @error('alamat')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="control-label mb-1">Koordinat Maps<span class="text-danger">*</span></label>
-                            <input type="hidden" name="kordinat_maps" id="kordinat_maps"
-                                class="form-control @error('kordinat_maps') is-invalid @enderror" placeholder=""
-                                value="{{ old('kordinat_maps') }}" />
-                            @error('kordinat_maps')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="control-label mb-1">Koordinat Maps<span class="text-danger">*</span></label>
-                            <input name="kordinat_maps_display" id="kordinat_maps_display"
-                                class="form-control @error('kordinat_maps') is-invalid @enderror" placeholder=""
-                                value="{{ old('kordinat_maps') }}" disabled />
-                            @error('kordinat_maps')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3" style="height: 400px" id="map"></div>
-
-                        <div class="mb-3">
-                            <input type="checkbox" name="is-aktif"
-                                class="form-check-input @error('is-aktif') is-invalid @enderror" value="1"
-                                {{ old('is-aktif') ? 'checked' : '' }} />
-                            <label class="control-label mb-1">Aktif<span class="text-danger">*</span></label>
-
-                            @error('is-aktif')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <input type="checkbox" name="is-umum"
-                                class="form-check-input @error('is-umum') is-invalid @enderror" value="1"
-                                {{ old('is-umum') ? 'checked' : '' }} />
-                            <label class="control-label mb-1">Tampilkan Untuk Umum<span class="text-danger">*</span></label>
-
-                            @error('is-umum')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="control-label mb-1">Nama Pemilik<span class="text-danger">*</span></label>
-                            <input type="text" name="nama_pemilik"
-                                class="form-control @error('nama_pemilik') is-invalid @enderror" placeholder="..."
-                                value="{{ old('nama_pemilik') }}" />
-                            @error('nama_pemilik')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="control-label mb-1">Desa - Kelurahan<span class="text-danger">*</span></label>
-                            <input type="text" name="desa" class="form-control @error('desa') is-invalid @enderror"
-                                placeholder="..." value="{{ old('desa') }}" />
-                            @error('desa')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="control-label mb-1">Kecamatan<span class="text-danger">*</span></label>
-                            <input type="text" name="kecamatan"
-                                class="form-control @error('kecamatan') is-invalid @enderror" placeholder="..."
-                                value="{{ old('kecamatan') }}" />
-                            @error('kecamatan')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="control-label mb-1">Kabupaten<span class="text-danger">*</span></label>
-                            <input type="text" name="kabupaten"
-                                class="form-control @error('kabupaten') is-invalid @enderror" placeholder="..."
-                                value="{{ old('kabupaten') }}" />
-                            @error('kabupaten')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="control-label mb-1">Jenis Usaha<span class="text-danger">*</span></label>
-                            <select name="jenis_usaha"
-                                class="form-select form-select-sm @error('jenis_usaha') is-invalid @enderror"
+                            <label class="control-label mb-1">Kategori Artikel<span class="text-danger">*</span></label>
+                            <select name="parent" class="form-select form-select-sm @error('parent') is-invalid @enderror"
                                 aria-label="Small select example">
-                                <option value="" disabled selected>Select Jenis Usaha</option>
-                                @foreach ($JenisUsaha as $item)
-                                    <option value="{{ $item->id }}"
-                                        {{ old('jenis_usaha') == $item->id ? 'selected' : '' }}>{{ $item->name }}
+                                <option value="" disabled selected>Select Kategori Artikel</option>
+                                @foreach ($KategoriArtikel as $item)
+                                    <option value="{{ $item->id }}" {{ old('parent', $data->kategori_artikel_id) == $item->id ? 'selected' : '' }}>
+                                        {{ $item->name }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('jenis_usaha')
+                            @error('parent')
                                 <small class="invalid-feedback">
                                     {{ $message }}
                                 </small>
@@ -149,92 +45,11 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="control-label mb-1">Klasifikasi Usaha<span class="text-danger">*</span></label>
-                            <select name="klasifikasi_usaha"
-                                class="form-select form-select-sm @error('klasifikasi_usaha') is-invalid @enderror"
-                                aria-label="Small select example">
-                                <option value="" disabled selected>Select Klasifikasi Usaha</option>
-                                @foreach ($KlasifikasiUsaha as $item)
-                                    <option value="{{ $item->id }}"
-                                        {{ old('klasifikasi_usaha') == $item->id ? 'selected' : '' }}>{{ $item->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('klasifikasi_usaha')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="control-label mb-1">Pendapatan - Aset<span class="text-danger">*</span></label>
-                            <input type="number" name="pendapatan-aset"
-                                class="form-control @error('pendapatan-aset') is-invalid @enderror" placeholder="(Rp)"
-                                value="{{ old('pendapatan-aset') }}" />
-                            @error('pendapatan-aset')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="control-label mb-1">Pendapatan - Omset<span class="text-danger">*</span></label>
-                            <input type="number" name="pendapatan-omset"
-                                class="form-control @error('pendapatan-omset') is-invalid @enderror" placeholder="(Rp)"
-                                value="{{ old('pendapatan-omset') }}" />
-                            @error('pendapatan-omset')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="control-label mb-1">Tenaga Kerja (Laki-Laki)<span
+                            <label class="control-label mb-1">Pilih Gambar Cover Artikel<span
                                     class="text-danger">*</span></label>
-                            <input type="number" name="tenaga-kerja-l"
-                                class="form-control @error('tenaga-kerja-l') is-invalid @enderror" placeholder="..."
-                                value="{{ old('tenaga-kerja-l') }}" />
-                            @error('tenaga-kerja-l')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="control-label mb-1">Tenaga Kerja (Perempuan)<span
-                                    class="text-danger">*</span></label>
-                            <input type="number" name="tenaga-kerja-p"
-                                class="form-control @error('tenaga-kerja-p') is-invalid @enderror" placeholder="..."
-                                value="{{ old('tenaga-kerja-p') }}" />
-                            @error('tenaga-kerja-p')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="control-label mb-1"> Jumlah Tenaga Kerja
-                                <span class="text-danger">*</span></label>
-                            <input type="number" name="jumlah-tenaga-kerja"
-                                class="form-control @error('jumlah-tenaga-kerja') is-invalid @enderror" placeholder="..."
-                                value="{{ old('jumlah-tenaga-kerja') }}" />
-                            @error('jumlah-tenaga-kerja')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <input type="checkbox" name="is-umum"
-                                class="form-check-input @error('bantuan') is-invalid @enderror" value="1"
-                                {{ old('bantuan') ? 'checked' : '' }} />
-                            <label class="control-label mb-1">Bantuan Yang Telah Diterima Dari Pemerintah<span
-                                    class="text-danger">*</span></label>
-
-                            @error('bantuan')
+                            <input type="file" name="cover" class="form-control @error('cover') is-invalid @enderror"
+                                accept=".png, .jpg, .jpeg" />
+                            @error('cover')
                                 <small class="invalid-feedback">
                                     {{ $message }}
                                 </small>
@@ -242,26 +57,48 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="control-label mb-1">Keterangan Jenis Usaha<span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label mb-1">Judul<span class="text-danger">*</span></label>
+                            <input type="text" name="judul" class="form-control @error('judul') is-invalid @enderror"
+                                placeholder="..." value="{{ old('judul', $data->title) }}" />
+                            @error('judul')
+                                <small class="invalid-feedback">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
 
-                            <textarea class="form-control" name="keterangan-jenis-usaha" rows="5" id="editor">
-                                {{ old('keterangan-jenis-usaha') }}
+                        <div class="mb-3">
+                            <label class="control-label mb-1">Keywords<span class="text-danger">*</span></label>
+                            <input type="text" name="keywords"
+                                class="form-control @error('keywords') is-invalid @enderror" placeholder="..."
+                                value="{{ old('keywords', $data->keywords) }}" />
+                            @error('keywords')
+                                <small class="invalid-feedback">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="control-label mb-1">Deskripsi<span class="text-danger">*</span></label>
+                            <input type="text" name="deskripsi"
+                                class="form-control @error('deskripsi') is-invalid @enderror" placeholder="..."
+                                value="{{ old('deskripsi', $data->deskripsi) }}" />
+                            @error('deskripsi')
+                                <small class="invalid-feedback">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="control-label mb-1">Isi Artikel/Berita<span class="text-danger">*</span></label>
+                            
+                            <textarea class="form-control" name="isi_artikel" rows="5" id="editor">
+                                {{ old('isi_artikel', $data->isi_artikel) }}
                             </textarea>
-                        </div>
+                        </div>                        
 
-
-                        <div class="mb-3">
-                            <label class="control-label mb-1">Keterangan<span class="text-danger">*</span></label>
-                            <input type="text" name="keterangan"
-                                class="form-control @error('keterangan') is-invalid @enderror" placeholder="..."
-                                value="{{ old('keterangan') }}" />
-                            @error('keterangan')
-                                <small class="invalid-feedback">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
 
                     </div>
                 </div>
@@ -283,42 +120,12 @@
     </div>
     @push('scripts')
         <script>
-            var map = L.map('map').setView([0.556174, 123.058548], 13);
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }).addTo(map);
-            var marker = L.marker([0.556174, 123.058548]).addTo(map);
-            var popup = L.popup();
-
-            document.getElementById("kordinat_maps").value = "Lat: 0.556174  Lang: 123.058548"
-            document.getElementById("kordinat_maps_display").value = "Lat: 0.556174  Lang: 123.058548"
-
-            function onMapClick(e) {
-                if (marker) {
-                    map.removeLayer(marker);
-                }
-                marker = L.marker(e.latlng).addTo(map);
-                popup
-                    .setLatLng(e.latlng)
-                    .setContent(e.latlng.toString())
-                    .openOn(map);
-
-                var lat = e.latlng.lat.toFixed(6);
-                var lng = e.latlng.lng.toFixed(6);
-
-                document.getElementById("kordinat_maps").value = "Lat: " + lat + "  Lang: " + lng;
-                document.getElementById("kordinat_maps_display").value = "Lat: " + lat + "  Lang: " + lng;
-            }
-
-            map.on('click', onMapClick);
-
             ClassicEditor
                 .create(document.querySelector('#editor'))
                 .then(editor => {
                     editor.model.document.on('change', () => {
                         const keteranganJenisUsaha = editor.getData();
-                        document.querySelector('[name="keterangan-jenis-usaha"]').value = keteranganJenisUsaha;
+                        document.querySelector('[name="isi_artikel"]').value = keteranganJenisUsaha;
                     });
                 })
                 .catch(error => {

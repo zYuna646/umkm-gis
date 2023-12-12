@@ -212,22 +212,12 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Pemilik</th>
-                                <th>Desa - Kelurahan</th>
-                                <th>Kecamatan</th>
                                 <th>Kota - Kabupaten</th>
                                 <th>Jenis Usaha</th>
                                 <th>Klasifikasi Usaha</th>
-                                <th>Pendapatan Aset</th>
-                                <th>Pendapatan Omset</th>
-                                <th>Tenaga Kerja (Laki-Laki)</th>
-                                <th>Tenaga Kerja (Perempuan)</th>
-                                <th>Jumlah Tenaga Kerja</th>
-                                <th>Keterangan</th>
                                 <th>Status</th>
                                 <th>Pesan</th>
-                                @if (auth()->user()->role == 'admin')
-                                    <th>Action</th>
-                                @endif
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -235,17 +225,9 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $result->nama_pemilik }}</td>
-                                    <td>{{ $result->desa }}</td>
-                                    <td>{{ $result->kecamatan }}</td>
                                     <td>{{ $result->kabupaten }}</td>
                                     <td>{{ \App\Models\JenisUsaha::find($result->jenis_usaha_id)->name }}</td>
                                     <td>{{ \App\Models\KlasifikasiUsaha::find($result->klasifikasi_usaha_id)->name }}</td>
-                                    <td>{{ $result->pendapatan_aset }}</td>
-                                    <td>{{ $result->pendapatan_omset }}</td>
-                                    <td>{{ $result->tenaga_kerja_l }}</td>
-                                    <td>{{ $result->tenaga_kerja_p }}</td>
-                                    <td>{{ $result->jumlah_tenaga_kerja }}</td>
-                                    <td>{{ $result->keterangan }}</td>
                                     <td
                                         class="font-weight-bold
                                     @if ($result->status == 'proses') bg-warning
@@ -257,8 +239,8 @@
                                     <td>
                                         {{ $result->message }}
                                     </td>
-                                    @if (auth()->user()->role == 'admin')
-                                        <td>
+                                    <td>
+                                        @if (auth()->user()->role == 'admin')
                                             <a href="{{ route('admin.' . $active . '.edit', $result->id) }}"
                                                 class="btn btn-sm btn-warning">
                                                 <i class="ti ti-pencil"></i>
@@ -272,8 +254,14 @@
                                                     <i class="ti ti-trash"></i>
                                                 </button>
                                             </form>
-                                        </td>
-                                    @endif
+                                        @endif
+                                        <a href="{{ route('umkm.detail', ['id' => $result->id]) }}"
+                                            class="btn btn-sm btn-secondary">
+                                            <i class="ti ti-eye"></i>
+                                        </a>
+                                    </td>
+
+
                                 </tr>
                             @endforeach
                         </tbody>

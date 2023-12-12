@@ -23,7 +23,7 @@ class UMKMController extends Controller
         $klasifikasiUsaha = KlasifikasiUsaha::all();
         $jenisUsaha = JenisUsaha::all();
         return view('admin.master-data.umkm.index', [
-            'title' => 'umkm',
+            'title' => 'UMKM',
             'subtitle' => '',
             'active' => 'umkm',
             'datas' => UMKM::latest()->get(),
@@ -35,7 +35,7 @@ class UMKMController extends Controller
     public function permintaan()
     {
         return view('admin.master-data.umkm.permintaan', [
-            'title' => 'Permintaan umkm',
+            'title' => 'Permintaan UMKM',
             'subtitle' => '',
             'active' => 'permintaan',
             'datas' => UMKM::Where('status', 'proses')->get(),
@@ -89,8 +89,8 @@ class UMKMController extends Controller
         $JenisUsaha = JenisUsaha::all();
         $KlasifikasiUsaha = KlasifikasiUsaha::all();
         return view('admin.master-data.umkm.create', [
-            'title' => 'umkm',
-            'subtitle' => 'Add umkm',
+            'title' => 'UMKM',
+            'subtitle' => 'Add UMKM',
             'active' => 'umkm',
             'JenisUsaha' => $JenisUsaha,
             'KlasifikasiUsaha' => $KlasifikasiUsaha,
@@ -179,8 +179,8 @@ class UMKMController extends Controller
         $KlasifikasiUsaha = KlasifikasiUsaha::all();
 
         return view('admin.master-data.umkm.edit', [
-            'title' => 'umkm',
-            'subtitle' => 'Edit umkm',
+            'title' => 'UMKM',
+            'subtitle' => 'Edit UMKM',
             'active' => 'umkm',
             'data' => umkm::findOrFail($id),
             'JenisUsaha' => $JenisUsaha,
