@@ -13,10 +13,40 @@ use App\Models\UMKM;
 use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use App\Charts\BantuanChart;
+use App\Charts\JenisUsahaChart;
+use App\Charts\KecamatanChart;
+use App\Charts\KlasifikasiUsahaChart;
+use App\Charts\PendapatanChart;
+use App\Charts\TenagaKerjaChart;
+use App\Charts\TotalUMKMChart;
+use App\Charts\BantuanChart_;
+use App\Charts\JenisUsahaChart_;
+use App\Charts\KecamatanChart_;
+use App\Charts\KlasifikasiUsahaChart_;
+use App\Charts\PendapatanChart_;
+use App\Charts\TenagaKerjaChart_;
+use App\Charts\TotalUMKMChart_;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function index(  PendapatanChart $pendapatanChart,
+    TotalUMKMChart $totalUMKMChart,
+    TenagaKerjaChart $tenagaKerjaChart,
+    BantuanChart $bantuanChart,
+    JenisUsahaChart $jenisUsahaChart,
+    KlasifikasiUsahaChart $klasifikasiUsahaChart,
+    KecamatanChart $kecamatanChart,
+    
+    PendapatanChart_ $pendapatanChart_,
+    TotalUMKMChart_ $totalUMKMChart_,
+    TenagaKerjaChart_ $tenagaKerjaChart_,
+    BantuanChart_ $bantuanChart_,
+    JenisUsahaChart_ $jenisUsahaChart_,
+    KlasifikasiUsahaChart_ $klasifikasiUsahaChart_,
+    KecamatanChart_ $kecamatanChart_
+    
+    )
     {
         $count_catalog = artikel::count();
         $count_category = UMKM::count();
@@ -41,6 +71,21 @@ class AdminController extends Controller
             'latest_video' => $latest_video,
             'latest_informations' => $latest_informations,
             'umkms' => $umkm,
+            'pendapatanChart' => $pendapatanChart->build(),
+            'totalUMKMChart' => $totalUMKMChart->build(),
+            'tenagaKerjaChart' => $tenagaKerjaChart->build(),
+            'bantuanChart' => $bantuanChart->build(),
+            'jenisUsahaChart' => $jenisUsahaChart->build(),
+            'klasifikasiUsahaChart' => $klasifikasiUsahaChart->build(),
+            'kecamatanChart' => $kecamatanChart->build(),
+            'pendapatanChart_' => $pendapatanChart_->build(),
+            'totalUMKMChart_' => $totalUMKMChart_->build(),
+            'tenagaKerjaChart_' => $tenagaKerjaChart_->build(),
+            'bantuanChart_' => $bantuanChart_->build(),
+            'jenisUsahaChart_' => $jenisUsahaChart_->build(),
+            'klasifikasiUsahaChart_' => $klasifikasiUsahaChart_->build(),
+            'kecamatanChart_' => $kecamatanChart_->build()
+            
         ]);
     }
 

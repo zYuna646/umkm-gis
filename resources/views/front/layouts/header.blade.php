@@ -48,7 +48,7 @@
                     <ul class="nav">
                       <li><a href="{{route('home')}}" class="active">Home</a></li>
                       <li><a href="{{route('dashboard')}}">Dashboard</a></li>
-                      <li><a href="{{route('catalog')}}">Layanan UMKM</a></li>
+                      <li><a href="{{route('catalog')}}">Berita Atau Artikel</a></li>
                       <li><a href="{{route('contact')}}">Tentang Kami</a></li>
                       <li><a href="{{route('umkm')}}">UMKM</a></li>
                       <li><a href="{{route('login')}}"><i class="fa fa-person"></i> LOGIN</a></li>

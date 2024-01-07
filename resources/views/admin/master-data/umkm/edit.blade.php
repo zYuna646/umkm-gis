@@ -37,6 +37,27 @@
                             @enderror
                         </div>
                         <div class="mb-3">
+                            <label class="control-label mb-1">Pilih Foto UMKM<span
+                                    class="text-danger">*</span></label>
+                            <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
+                                accept=".png, .jpg, .jpeg" />
+                            @error('foto')
+                                <small class="invalid-feedback">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="control-label mb-1">Link Lokasi Pada Google Maps<span class="text-danger">*</span></label>
+                            <input type="text" name="link" class="form-control @error('link') is-invalid @enderror"
+                                placeholder="..." value="{{ old('link', $data->link) }}" />
+                            @error('link')
+                                <small class="invalid-feedback">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
                             <label class="control-label mb-1">Koordinat Maps<span class="text-danger">*</span></label>
                             <input type="hidden" name="kordinat_maps" id="kordinat_maps"
                                 class="form-control @error('kordinat_maps') is-invalid @enderror" placeholder=""

@@ -102,7 +102,7 @@
                             <span>
                                 <i class="ti ti-news"></i>
                             </span>
-                            <span class="hide-menu">Pengajuan UMKM</span>
+                            <span class="hide-menu">Verifikasi UMKM</span>
                         </a>
                     </li>
                 @endif

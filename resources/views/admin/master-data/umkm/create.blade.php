@@ -19,7 +19,7 @@
     </div>
 
     <div class="card">
-        <form action="{{ route('admin.' . $active . '.store') }}" method="post">
+        <form action="{{ route('admin.' . $active . '.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <h5 class="mb-3">{{ $subtitle }} Form</h5>
@@ -36,7 +36,28 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label class="control-label mb-1">Koordinat Maps<span class="text-danger">*</span></label>
+                            <label class="control-label mb-1">Pilih Foto UMKM<span
+                                    class="text-danger">*</span></label>
+                            <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
+                                accept=".png, .jpg, .jpeg" />
+                            @error('foto')
+                                <small class="invalid-feedback">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="control-label mb-1">Link Lokasi Pada Google Maps<span class="text-danger">*</span></label>
+                            <input type="text" name="link" class="form-control @error('link') is-invalid @enderror"
+                                placeholder="..." value="{{ old('link') }}" />
+                            @error('link')
+                                <small class="invalid-feedback">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
                             <input type="hidden" name="kordinat_maps" id="kordinat_maps"
                                 class="form-control @error('kordinat_maps') is-invalid @enderror" placeholder=""
                                 value="{{ old('kordinat_maps') }}" />
@@ -170,7 +191,8 @@
                             <label class="control-label mb-1">Pendapatan - Aset</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Rp</span>
-                                <input type="number" id="priceInput" name="pendapatan-aset" class="form-control" value="{{ old('pendapatan-aset') }}" placeholder="0" />
+                                <input type="number" id="priceInput" name="pendapatan-aset" class="form-control"
+                                    value="{{ old('pendapatan-aset') }}" placeholder="0" />
                             </div>
                         </div>
 
@@ -178,7 +200,8 @@
                             <label class="control-label mb-1">Pendapatan - Omset</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Rp</span>
-                                <input type="number" id="priceInput" name="pendapatan-omset" class="form-control" value="{{ old('pendapatan-omset') }}" placeholder="0" />
+                                <input type="number" id="priceInput" name="pendapatan-omset" class="form-control"
+                                    value="{{ old('pendapatan-omset') }}" placeholder="0" />
                             </div>
                         </div>
 

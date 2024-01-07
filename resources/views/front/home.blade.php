@@ -79,16 +79,26 @@
                 @foreach ($umkms as $item)
                     <div class="col-lg-4 col-md-6">
                         <div class="item">
-                            <a href="{{route('umkm.detail', $item->id)}}"><img src="{{asset('temp/assets/images/property-01.jpg')}}" alt=""></a>
-                            <span class="category">{{$item->KlasifikasiUsaha->name}}</span>
-                            <h6>{{$item->nama_pemilik}}</h6>
+                            <a href="{{ route('umkm.detail', $item->id) }}">
+
+                                @if ($item->foto == null)
+                                    <img src="{{ asset('temp/assets/images/property-01.jpg') }}" alt="">
+                                @else
+                                    <img src="{{ asset('uploads/catalog/image/' . $item->foto) }}"
+                                        alt="{{ $item->name }}">
+                                @endif
+
+
+                            </a>
+                            <span class="category">{{ $item->KlasifikasiUsaha->name }}</span>
+                            <h6>{{ $item->nama_pemilik }}</h6>
                             <h4><a href="property-details.html"></a></h4>
                             <ul>
-                                <li>Desa/Kel: <span>{{$item->desa}}</span></li>
-                                <li>Jenis Usaha: <span>{{$item->JenisUsaha->name}}</span></li>
+                                <li>Desa/Kel: <span>{{ $item->desa }}</span></li>
+                                <li>Jenis Usaha: <span>{{ $item->JenisUsaha->name }}</span></li>
                             </ul>
                             <div class="main-button">
-                                <a href="{{route('umkm.detail', $item->id)}}">Lihat</a>
+                                <a href="{{ route('umkm.detail', $item->id) }}">Lihat</a>
                             </div>
                         </div>
                     </div>
@@ -229,7 +239,13 @@
             var lng = {{ $longitude }};
             var marker = L.marker([lat, lng]).addTo(map);
             marker.bindPopup(
-                '{{ $umkm->nama_pemilik . ', jenis usaha : ' . $umkm->JenisUsaha->name . ', Klasifikasi Usaha : ' . $umkm->KlasifikasiUsaha->name }}'
+                '{!! $umkm->nama_pemilik .
+                    ', jenis usaha : ' .
+                    $umkm->JenisUsaha->name .
+                    ', Klasifikasi Usaha : ' .
+                    $umkm->KlasifikasiUsaha->name .
+                    ', Link : ' .
+                    $umkm->link !!} '
             );
         @endforeach
     </script>

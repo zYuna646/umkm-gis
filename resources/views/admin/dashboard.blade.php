@@ -137,6 +137,178 @@
     </div>
 
     <div class="mb-3" style="height: 600px" id="map"></div>
+
+    @if (auth()->user()->role == 'dinas')
+        <div class="card-body">
+            <div class="text-center">
+                <h1>Data UMKM Di Terima</h1>
+            </div>
+        </div>
+
+        <div class="single-property section">
+            <div class="container">
+                <div class="row mb-3">
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $pendapatanChart->container() !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $totalUMKMChart->container() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $tenagaKerjaChart->container() !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $bantuanChart->container() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $tenagaKerjaChart->container() !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $bantuanChart->container() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $jenisUsahaChart->container() !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $klasifikasiUsahaChart->container() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        {!! $kecamatanChart->container() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="text-center">
+                <h1>Data UMKM Di Proses</h1>
+            </div>
+        </div>
+
+        <div class="single-property section">
+            <div class="container">
+                <div class="row mb-3">
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $pendapatanChart_->container() !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $totalUMKMChart_->container() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $tenagaKerjaChart_->container() !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $bantuanChart_->container() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $tenagaKerjaChart_->container() !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $bantuanChart_->container() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $jenisUsahaChart_->container() !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $klasifikasiUsahaChart_->container() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        {!! $kecamatanChart_->container() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
 
 @push('scripts')
@@ -188,13 +360,46 @@
             var lat = {{ $latitude }};
             var lng = {{ $longitude }};
             var marker = L.marker([lat, lng]);
-            marker.bindPopup('{{ $umkm->nama_pemilik . ', jenis usaha : ' . $umkm->JenisUsaha->name . ', Klasifikasi Usaha : ' . $umkm->KlasifikasiUsaha->name }}');
+            marker.bindPopup(
+                '{{ $umkm->nama_pemilik . ', jenis usaha : ' . $umkm->JenisUsaha->name . ', Klasifikasi Usaha : ' . $umkm->KlasifikasiUsaha->name }}'
+            );
 
-            markers.push(marker); 
+            markers.push(marker);
         @endforeach
 
         for (var i = 0; i < markers.length; i++) {
             markers[i].addTo(map);
         }
     </script>
+
+    <script src="{{ $pendapatanChart->cdn() }}"></script>
+    {{ $pendapatanChart->script() }}
+    <script src="{{ $totalUMKMChart->cdn() }}"></script>
+    {{ $totalUMKMChart->script() }}
+    <script src="{{ $tenagaKerjaChart->cdn() }}"></script>
+    {{ $tenagaKerjaChart->script() }}
+    <script src="{{ $bantuanChart->cdn() }}"></script>
+    {{ $bantuanChart->script() }}
+    <script src="{{ $jenisUsahaChart->cdn() }}"></script>
+    {{ $jenisUsahaChart->script() }}
+    <script src="{{ $klasifikasiUsahaChart->cdn() }}"></script>
+    {{ $klasifikasiUsahaChart->script() }}
+    <script src="{{ $kecamatanChart->cdn() }}"></script>
+    {{ $kecamatanChart->script() }}
+
+
+    <script src="{{ $pendapatanChart_->cdn() }}"></script>
+    {{ $pendapatanChart_->script() }}
+    <script src="{{ $totalUMKMChart_->cdn() }}"></script>
+    {{ $totalUMKMChart_->script() }}
+    <script src="{{ $tenagaKerjaChart_->cdn() }}"></script>
+    {{ $tenagaKerjaChart_->script() }}
+    <script src="{{ $bantuanChart_->cdn() }}"></script>
+    {{ $bantuanChart_->script() }}
+    <script src="{{ $jenisUsahaChart_->cdn() }}"></script>
+    {{ $jenisUsahaChart_->script() }}
+    <script src="{{ $klasifikasiUsahaChart_->cdn() }}"></script>
+    {{ $klasifikasiUsahaChart_->script() }}
+    <script src="{{ $kecamatanChart_->cdn() }}"></script>
+    {{ $kecamatanChart_->script() }}
 @endpush

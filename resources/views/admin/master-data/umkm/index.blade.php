@@ -77,6 +77,17 @@
                                 <input type="date" name="end_date" class="form-control" />
 
                             </div>
+                            <div class="mb-3">
+                                <label class="control-label mb-1">Option Field Dalam Laporan</label>
+                                @foreach ($fields as $field)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="options[]"
+                                            value="{{ $field }}" id="{{ $field }}">
+                                        <label class="form-check-label"
+                                            for="{{ $field }}">{{ ucfirst($field) }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
 
                         <div class="form-actions">
@@ -155,7 +166,6 @@
                                                 </tbody>
                                             </table>
                                         </div>
-
                                         <label class="control-label mb-1">Upload Excel<span
                                                 class="text-danger">*</span></label>
                                         <input type="file" name="excel"
@@ -211,6 +221,7 @@
                         <thead class="header-item">
                             <tr>
                                 <th>No</th>
+                                <th>Foto UMKM</th>
                                 <th>Nama Pemilik</th>
                                 <th>Kota - Kabupaten</th>
                                 <th>Jenis Usaha</th>
@@ -224,6 +235,10 @@
                             @foreach ($datas as $result)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        <img src="{{ asset('uploads/catalog/image/' . $result->foto) }}" alt="{{ $result->name }}"
+                                        class="img-fluid rounded" width="100" height="100">
+                                    </td>
                                     <td>{{ $result->nama_pemilik }}</td>
                                     <td>{{ $result->kabupaten }}</td>
                                     <td>{{ \App\Models\JenisUsaha::find($result->jenis_usaha_id)->name }}</td>

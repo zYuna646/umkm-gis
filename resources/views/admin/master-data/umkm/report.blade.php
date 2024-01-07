@@ -74,15 +74,15 @@
                 TEANGA KERJA KABUPATEN BOLAANG MONGONDOW
             </font>
         </div>
-        @if (count($umkms)  > 0)
+        @if (count($umkms) > 0)
             <table class="data">
                 <thead>
                     <tr>
                         <th>NO.</th>
                         <th>NAMA PEMILIK</th>
-                        <th>ALAMAT</th>
-                        <th>JENIS USAHA</th>
-                        <th>KLASIFIKASI USAHA</th>
+                        @foreach ($data as $item)
+                            <th>{{ $item }}</th>
+                        @endforeach
                     </tr>
                 </thead>
                 <tbody>
@@ -91,16 +91,21 @@
                         $i = 0;
                     @endphp
 
-                    @foreach ($umkms as $item)
-                        @php
-                            $i++;
-                        @endphp
+                    @foreach ($umkms as $umkm)
                         <tr>
-                            <td>{{ $i }}</td>
-                            <td>{{ $item->nama_pemilik }}</td>
-                            <td>{{ $item->alamat }}</td>
-                            <td>{{ $item->JenisUsaha->name }}</td>
-                            <td>{{ $item->KlasifikasiUsaha->name }}</td>
+                            <td>{{ ++$i }}</td>
+                            <td>{{ $umkm->nama_pemilik }}</td>
+                            @foreach ($data as $item)
+                                @if ($item == 'Klasifikasi Usaha' || $item == 'Jenis Usaha')
+                                    <td>{{ $umkm->{$fields[$item]}->name }}</td>
+                                @elseif ($item == 'Aktif' || $item == 'Bantuan' || $item == 'Umum')
+                                    <td>{{ $umkm->{$fields[$item]} == 0 ? 'Tidak' : 'Ya' }}</td>
+                                @else
+                                    <td>{{ is_array($umkm->{$fields[$item]}) ? implode(', ', $umkm->{$fields[$item]}) : $umkm->{$fields[$item]} }}
+                                    </td>
+                                @endif
+                            @endforeach
+
                         </tr>
                     @endforeach
                 </tbody>

@@ -34,8 +34,12 @@
                     <div
                         class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 {{ strtolower($item->JenisUsaha->name) }}">
                         <div class="item">
-                            <a href="{{ route('umkm.detail', $item->id) }}"><img
-                                    src="{{ asset('temp/assets/images/property-01.jpg') }}" alt=""></a>
+                            <a href="{{ route('umkm.detail', $item->id) }}">   @if ($item->foto == null)
+                                <img src="{{ asset('temp/assets/images/property-01.jpg') }}" alt="">
+                            @else
+                                <img src="{{ asset('uploads/catalog/image/' . $item->foto) }}"
+                                    alt="{{ $item->name }}">
+                            @endif</a>
                             <span class="category">{{ $item->KlasifikasiUsaha->name }}</span>
                             <h6>{{ $item->nama_pemilik }}</h6>
                             <h4><a href="{{ route('umkm.detail', $item->id) }}"></a></h4>

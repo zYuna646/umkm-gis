@@ -29,16 +29,50 @@ class UMKMController extends Controller
             'datas' => UMKM::latest()->get(),
             'jenisUsaha' => $jenisUsaha,
             'klasifikasiUsaha' => $klasifikasiUsaha,
+            'fields' => [
+                'Aktif',
+                'Umum',
+                'Bantuan',
+                'Alamat',
+                'Desa',
+                'Kecamatan',
+                'Kabupaten',
+                'Pendapatan Aset',
+                'Pendapatan Omset',
+                'Tenaga Kerja L',
+                'Tenaga Kerja P',
+                'Jumlah Tenaga Kerja',
+                'Jenis Usaha',
+                'Klasifikasi Usaha',
+                'Status',
+            ],
         ]);
     }
 
     public function permintaan()
     {
         return view('admin.master-data.umkm.permintaan', [
-            'title' => 'Permintaan UMKM',
+            'title' => 'Verifikasi UMKM',
             'subtitle' => '',
             'active' => 'permintaan',
             'datas' => UMKM::Where('status', 'proses')->get(),
+            'fields' => [
+                'Aktif',
+                'Umum',
+                'Bantuan',
+                'Alamat',
+                'Desa',
+                'Kecamatan',
+                'Kabupaten',
+                'Pendapatan Aset',
+                'Pendapatan Omset',
+                'Tenaga Kerja L',
+                'Tenaga Kerja P',
+                'Jumlah Tenaga Kerja',
+                'Jenis Usaha',
+                'Klasifikasi Usaha',
+                'Status',
+            ]
         ]);
     }
 
@@ -121,6 +155,8 @@ class UMKMController extends Controller
                 'keterangan-jenis-usaha' => 'required',
                 'keterangan' => 'required',
                 'jumlah-tenaga-kerja' => 'required',
+                'foto' => 'required|image|mimes:png,jpg,jpeg',
+                'link' => 'required'
 
             ],
             [
@@ -132,6 +168,10 @@ class UMKMController extends Controller
         $koordinat_maps = $request->input('kordinat_maps');
         list($latitude, $longitude) = explode("  Lang: ", str_replace("Lat: ", "", $koordinat_maps));
         $point = DB::raw("POINT($latitude, $longitude)");
+
+        $image = $request->file('foto');
+        $image_name = time() . '-' . rand(1, 100) . '-' . $request->nama_pemilik . '.' . $image->extension();
+        $image->move(public_path('uploads/catalog/image'), $image_name);
 
         umkm::create([
             'alamat' => $request->alamat,
@@ -152,7 +192,8 @@ class UMKMController extends Controller
             'is_Aktif' => $request->input('is-aktif') !== null ? true : false,
             'is_Umum' => $request->input('is-umum') !== null ? true : false,
             'is_Bantuan' => $request->input('bantuan') !== null ? true : false,
-
+            'link' => $request->input('link'),
+            'foto' => $image_name
         ]);
 
         return redirect()->route('admin.umkm')->with('success', 'umkm has been added!');
@@ -211,6 +252,7 @@ class UMKMController extends Controller
                 'keterangan-jenis-usaha' => 'required',
                 'keterangan' => 'required',
                 'jumlah-tenaga-kerja' => 'required',
+                'link' => 'required'
 
             ],
             [
@@ -225,29 +267,64 @@ class UMKMController extends Controller
 
         $umkm = umkm::findOrFail($id);
 
-        $umkm->update([
-            'alamat' => $request->alamat,
-            'kordinat' => $point,
-            'nama_pemilik' => $request->nama_pemilik,
-            'desa' => $request->desa,
-            'kecamatan' => $request->kecamatan,
-            'kabupaten' => $request->kabupaten,
-            'jenis_usaha_id' => $request->input('jenis_usaha'),
-            'klasifikasi_usaha_id' => $request->input('klasifikasi_usaha'),
-            'pendapatan_aset' => $request->input('pendapatan-aset'),
-            'pendapatan_omset' => $request->input('pendapatan-omset'),
-            'tenaga_kerja_l' => $request->input('tenaga-kerja-l'),
-            'tenaga_kerja_p' => $request->input('tenaga-kerja-p'),
-            'jumlah_tenaga_kerja' => $request->input('jumlah-tenaga-kerja'),
-            'keterangan_jenis_usaha' => $request->input('keterangan-jenis-usaha'),
-            'keterangan' => $request->input('keterangan'),
-            'is_Aktif' => $request->input('is-aktif') !== null ? true : false,
-            'is_Umum' => $request->input('is-umum') !== null ? true : false,
-            'is_Bantuan' => $request->input('bantuan') !== null ? true : false,
-        ]);
+        $image = $request->file('cover');
 
-        if($umkm->status == 'tolak')
-        {
+
+        if ($image != null) {
+            $image_name = time() . '-' . rand(1, 100) . '-' . $request->nama_pemilik . '.' . $image->extension();
+            $image->move(public_path('uploads/catalog/image'), $image_name);
+
+            $umkm->update([
+                'alamat' => $request->alamat,
+                'kordinat' => $point,
+                'nama_pemilik' => $request->nama_pemilik,
+                'desa' => $request->desa,
+                'kecamatan' => $request->kecamatan,
+                'kabupaten' => $request->kabupaten,
+                'jenis_usaha_id' => $request->input('jenis_usaha'),
+                'klasifikasi_usaha_id' => $request->input('klasifikasi_usaha'),
+                'pendapatan_aset' => $request->input('pendapatan-aset'),
+                'pendapatan_omset' => $request->input('pendapatan-omset'),
+                'tenaga_kerja_l' => $request->input('tenaga-kerja-l'),
+                'tenaga_kerja_p' => $request->input('tenaga-kerja-p'),
+                'jumlah_tenaga_kerja' => $request->input('jumlah-tenaga-kerja'),
+                'keterangan_jenis_usaha' => $request->input('keterangan-jenis-usaha'),
+                'keterangan' => $request->input('keterangan'),
+                'is_Aktif' => $request->input('is-aktif') !== null ? true : false,
+                'is_Umum' => $request->input('is-umum') !== null ? true : false,
+                'is_Bantuan' => $request->input('bantuan') !== null ? true : false,
+                'link' => $request->input('link'),
+                'foto' => $image_name
+            ]);
+
+        } else {
+            $umkm->update([
+                'alamat' => $request->alamat,
+                'kordinat' => $point,
+                'nama_pemilik' => $request->nama_pemilik,
+                'desa' => $request->desa,
+                'kecamatan' => $request->kecamatan,
+                'kabupaten' => $request->kabupaten,
+                'jenis_usaha_id' => $request->input('jenis_usaha'),
+                'klasifikasi_usaha_id' => $request->input('klasifikasi_usaha'),
+                'pendapatan_aset' => $request->input('pendapatan-aset'),
+                'pendapatan_omset' => $request->input('pendapatan-omset'),
+                'tenaga_kerja_l' => $request->input('tenaga-kerja-l'),
+                'tenaga_kerja_p' => $request->input('tenaga-kerja-p'),
+                'jumlah_tenaga_kerja' => $request->input('jumlah-tenaga-kerja'),
+                'keterangan_jenis_usaha' => $request->input('keterangan-jenis-usaha'),
+                'keterangan' => $request->input('keterangan'),
+                'is_Aktif' => $request->input('is-aktif') !== null ? true : false,
+                'is_Umum' => $request->input('is-umum') !== null ? true : false,
+                'is_Bantuan' => $request->input('bantuan') !== null ? true : false,
+                'link' => $request->input('link')
+            ]);
+        }
+
+
+
+
+        if ($umkm->status == 'tolak') {
             $umkm->Update([
                 'status' => 'proses'
             ]);
@@ -270,7 +347,7 @@ class UMKMController extends Controller
         );
 
         $start_date = \Carbon\Carbon::parse($request->start_date)->format('Y-m-d');
-
+        $option = $request->options;
 
         if ($request->has('end_date') && !empty($request->end_date)) {
             $end_date = \Carbon\Carbon::parse($request->end_date)->format('Y-m-d');
@@ -280,7 +357,26 @@ class UMKMController extends Controller
         }
         $data = [
             'umkms' => $produksi->where('status', 'terima'),
+            'fields' => [
+                'Aktif' => 'is_Aktif',
+                'Umum' => 'is_Umum',
+                'Bantuan' => 'is_Bantuan',
+                'Alamat' => 'alamat',
+                'Desa' => 'desa',
+                'Kecamatan' => 'kecamatan',
+                'Kabupaten' => 'kabupaten',
+                'Pendapatan Aset' => 'pendapatan_aset',
+                'Pendapatan Omset' => 'pendapatan_omset',
+                'Tenaga Kerja L' => 'tenaga_kerja_l',
+                'Tenaga Kerja P' => 'tenaga_kerja_p',
+                'Jumlah Tenaga Kerja' => 'jumlah_tenaga_kerja',
+                'Jenis Usaha' => 'jenis_usaha_id',
+                'Klasifikasi Usaha' => 'klasifikasi_usaha_id',
+                'Status' => 'status',
+            ],
+            'data' => $option,
         ];
+
         $pdf = PDF::loadView('admin.master-data.umkm.report', $data)->setPaper('A4', 'portrait');
         return $pdf->download('Laporan UMKM.pdf');
 
@@ -288,7 +384,6 @@ class UMKMController extends Controller
 
     public function pengajuan(Request $request)
     {
-
         $this->validate(
             $request,
             [
@@ -299,6 +394,7 @@ class UMKMController extends Controller
         );
 
         $start_date = \Carbon\Carbon::parse($request->start_date)->format('Y-m-d');
+        $option = $request->options;
 
 
         if ($request->has('end_date') && !empty($request->end_date)) {
@@ -309,7 +405,26 @@ class UMKMController extends Controller
         }
         $data = [
             'umkms' => $produksi,
+            'fields' => [
+                'Aktif' => 'is_Aktif',
+                'Umum' => 'is_Umum',
+                'Bantuan' => 'is_Bantuan',
+                'Alamat' => 'alamat',
+                'Desa' => 'desa',
+                'Kecamatan' => 'kecamatan',
+                'Kabupaten' => 'kabupaten',
+                'Pendapatan Aset' => 'pendapatan_aset',
+                'Pendapatan Omset' => 'pendapatan_omset',
+                'Tenaga Kerja L' => 'tenaga_kerja_l',
+                'Tenaga Kerja P' => 'tenaga_kerja_p',
+                'Jumlah Tenaga Kerja' => 'jumlah_tenaga_kerja',
+                'Jenis Usaha' => 'jenis_usaha_id',
+                'Klasifikasi Usaha' => 'klasifikasi_usaha_id',
+                'Status' => 'status',
+            ],
+            'data' => $option,
         ];
+
         $pdf = PDF::loadView('admin.master-data.umkm.pengajuan', $data)->setPaper('A4', 'portrait');
         return $pdf->download('Laporan UMKM.pdf');
 

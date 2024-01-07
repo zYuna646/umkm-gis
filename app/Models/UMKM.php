@@ -28,7 +28,9 @@ class UMKM extends Model
         'jenis_usaha_id',
         'klasifikasi_usaha_id',
         'status',
-        'message'
+        'message',
+        'foto',
+        'link'
     ];
 
 

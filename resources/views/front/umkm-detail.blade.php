@@ -228,6 +228,9 @@
                                     <strong>Jenis Usaha : </strong> {{$umkm->JenisUsaha->name}}
                                     <br>
                                     <br>
+                                    <strong>Link : </strong> <a href="{{$umkm->JenisUsaha->name}}">{{$umkm->JenisUsaha->name}}</a>
+                                    <br>
+                                    <br>
                                     <strong>Klasifikasi Usaha : </strong> {{$umkm->KlasifikasiUsaha->name}}
                                     <br>
                                     <br>
@@ -309,7 +312,7 @@
         var lng = {{ $longitude }};
         var marker = L.marker([lat, lng]).addTo(map);
         marker.bindPopup(
-            '{{ $umkm->nama_pemilik . ', jenis usaha : ' . $umkm->JenisUsaha->name . ', Klasifikasi Usaha : ' . $umkm->KlasifikasiUsaha->name }}'
-        );
+    '{!! $umkm->nama_pemilik . ', jenis usaha : ' . $umkm->JenisUsaha->name . ', Klasifikasi Usaha : ' . $umkm->KlasifikasiUsaha->name . ' Link : ' . $umkm->link !!} '
+);
     </script>
 @endpush

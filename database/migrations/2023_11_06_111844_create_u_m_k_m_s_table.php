@@ -18,6 +18,8 @@ return new class extends Migration {
             $table->string('nama_pemilik');
             $table->string('alamat');
             $table->string('desa');
+            $table->string('foto');
+            $table->string('link');
             $table->string('kecamatan');
             $table->string('kabupaten');
             $table->integer('pendapatan_aset');
