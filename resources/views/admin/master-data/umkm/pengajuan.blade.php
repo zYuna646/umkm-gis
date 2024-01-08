@@ -96,8 +96,10 @@
                             <td>{{ ++$i }}</td>
                             <td>{{ $umkm->nama_pemilik }}</td>
                             @foreach ($data as $item)
-                                @if ($item == 'Klasifikasi Usaha' || $item == 'Jenis Usaha')
-                                    <td>{{ $umkm->{$fields[$item]}->name }}</td>
+                                @if ($item == 'Klasifikasi Usaha')
+                                    <td>{{ $umkm->KlasifikasiUsaha->name }}</td>
+                                @elseif ($item == 'Jenis Usaha')
+                                    <td>{{ $umkm->JenisUsaha->name }}</td>
                                 @elseif ($item == 'Aktif' || $item == 'Bantuan' || $item == 'Umum')
                                     <td>{{ $umkm->{$fields[$item]} == 0 ? 'Tidak' : 'Ya' }}</td>
                                 @else
