@@ -46,9 +46,20 @@
                                 </small>
                             @enderror
                         </div>
+
                         <div class="mb-3">
                             <label class="control-label mb-1">Link Lokasi Pada Google Maps<span class="text-danger">*</span></label>
-                            <input type="text" name="link" class="form-control @error('link') is-invalid @enderror"
+                            <input type="text" name="linkDisplay" id="linkDisplay" class="form-control @error('linkDisplay') is-invalid @enderror"
+                                placeholder="..." value="{{ old('linkDisplay') }}" disabled />
+                            @error('linkDisplay')
+                                <small class="invalid-feedback">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="hidden" name="link" id="link" class="form-control @error('link') is-invalid @enderror"
                                 placeholder="..." value="{{ old('link') }}" />
                             @error('link')
                                 <small class="invalid-feedback">
@@ -307,6 +318,9 @@
 
             document.getElementById("kordinat_maps").value = "Lat: 0.556174  Lang: 123.058548"
             document.getElementById("kordinat_maps_display").value = "Lat: 0.556174  Lang: 123.058548"
+            document.getElementById("link").value = "https://www.google.com/maps?q=0.556174,123.058548";
+            document.getElementById("linkDisplay").value = "https://www.google.com/maps?q=0.556174,123.058548";
+
 
             function onMapClick(e) {
                 if (marker) {
@@ -323,6 +337,10 @@
 
                 document.getElementById("kordinat_maps").value = "Lat: " + lat + "  Lang: " + lng;
                 document.getElementById("kordinat_maps_display").value = "Lat: " + lat + "  Lang: " + lng;
+                document.getElementById("link").value = "https://www.google.com/maps?q=" + lat +","+lng;
+                document.getElementById("linkDisplay").value = "https://www.google.com/maps?q=" + lat +","+lng;
+
+                
             }
 
             map.on('click', onMapClick);

@@ -228,7 +228,7 @@
                                     <strong>Jenis Usaha : </strong> {{$umkm->JenisUsaha->name}}
                                     <br>
                                     <br>
-                                    <strong>Link : </strong> <a href="{{$umkm->JenisUsaha->name}}">{{$umkm->JenisUsaha->name}}</a>
+                                    <strong>Link : </strong> <a href="{{$umkm->link}}">Google Maps</a>
                                     <br>
                                     <br>
                                     <strong>Klasifikasi Usaha : </strong> {{$umkm->KlasifikasiUsaha->name}}

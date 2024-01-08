@@ -377,7 +377,7 @@ class UMKMController extends Controller
             'data' => $option,
         ];
 
-        $pdf = PDF::loadView('admin.master-data.umkm.report', $data)->setPaper('A4', 'portrait');
+        $pdf = PDF::loadView('admin.master-data.umkm.report', $data)->setPaper('A4', 'landscape');
         return $pdf->download('Laporan UMKM.pdf');
 
     }
@@ -425,7 +425,7 @@ class UMKMController extends Controller
             'data' => $option,
         ];
 
-        $pdf = PDF::loadView('admin.master-data.umkm.pengajuan', $data)->setPaper('A4', 'portrait');
+        $pdf = PDF::loadView('admin.master-data.umkm.pengajuan', $data)->setPaper('A4', 'landscape');
         return $pdf->download('Laporan UMKM.pdf');
 
     }
