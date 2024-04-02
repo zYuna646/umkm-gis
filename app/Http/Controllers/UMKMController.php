@@ -172,7 +172,6 @@ class UMKMController extends Controller
         $image = $request->file('foto');
         $image_name = time() . '-' . rand(1, 100) . '-' . $request->nama_pemilik . '.' . $image->extension();
         $image->move(public_path('uploads/catalog/image'), $image_name);
-
         umkm::create([
             'alamat' => $request->alamat,
             'kordinat' => $point,
@@ -267,13 +266,12 @@ class UMKMController extends Controller
 
         $umkm = umkm::findOrFail($id);
 
-        $image = $request->file('cover');
+        $image = $request->file('foto');
 
 
         if ($image != null) {
             $image_name = time() . '-' . rand(1, 100) . '-' . $request->nama_pemilik . '.' . $image->extension();
             $image->move(public_path('uploads/catalog/image'), $image_name);
-
             $umkm->update([
                 'alamat' => $request->alamat,
                 'kordinat' => $point,

@@ -19,7 +19,7 @@
     </div>
 
     <div class="card">
-        <form action="{{ route('admin.umkm.update', $data->id) }}" method="post">
+        <form action="{{ route('admin.umkm.update', $data->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('put')
             <div class="card-body">
